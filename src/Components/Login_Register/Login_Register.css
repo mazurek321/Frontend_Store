@@ -1,0 +1,282 @@
+.Login_Register{
+    width: 70vw;
+    min-height: 80vh;
+    background: #fefefe;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 3px;
+    box-shadow: 0 0 10px grey;
+}
+
+.goBack{
+    position: absolute;
+    top: 3%;
+    left: 2%;
+    color: lightgrey;
+    font-size: 16px;
+}
+
+.goBack.register{
+    left: 90%;
+}
+
+.Login_Register .login_section{
+    display: flex;
+    justify-content: space-between;
+}
+
+.Login_Register .main, .Login_Register .side{
+    width: 50%;
+    padding: 4em;
+}
+
+.Login_Register .side{
+    text-align: center;
+    position: relative;
+}
+
+.Login_Register .side_login, .Login_Register .side_register{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    padding: 4em;
+}
+
+.Login_Register .login_section .header{
+    margin: 20px 0;     
+}
+
+.Login_Register .login_section h3{
+    font-size: 2.5em;
+}
+
+.Login_Register .login_section h4{
+    font-size: 14px;
+    font-weight: normal;
+    margin: 15px 0;
+    color: grey;
+}
+
+.Login_Register .login_section h4 span{
+    text-decoration: underline;
+    color: blueviolet;
+    cursor: pointer;
+}
+
+.Login_Register .side h4, .Login_Register .side h3{
+    color: white;
+}
+
+.Login_Register form{
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+    width: 90%;
+}
+
+.Login_Register form > label{
+    margin: 15px 0;
+    position: relative;
+}
+
+.Login_Register form input{
+    width: 100%;
+    padding: 7px;
+    border-radius: 7px;
+    outline: none;
+    border: 2px solid lightgrey;
+    font-size: 17px;
+}
+
+.Login_Register .login_form .bottom_section{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: grey;
+    flex-wrap: wrap;
+}
+
+.Login_Register .login_form .bottom_section div{
+    margin: 5px 0;
+}
+
+.Login_Register .login_form .bottom_section span{
+    margin: 10px 0;
+}
+
+.Login_Register .login_form .styledButton{
+    margin-left: auto;
+}
+
+.Login_Register .background{
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: var(--backgroundGradient3Reversed);
+    z-index: -1;
+    animation: backgroundAnimation 2s linear infinite;
+    transition: all var(--transition-delay) linear;
+}
+
+.Login_Register .background.left{
+    right: 50%;
+    background: var(--backgroundGradient3);
+    transition: all var(--transition-delay) linear;
+}
+
+.Login_Register .remember_me{
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    cursor: pointer;
+}
+
+.Login_Register .forgot_password{
+    cursor: pointer;
+}
+
+.Login_Register .register_main{
+    text-align: right;
+    margin-left: auto;
+}
+
+.Login_Register .register_form form{
+    margin-left: auto;
+}
+
+.Login_Register .register_form form label{
+    margin: 7px;
+}
+
+.register_form .styledButton{
+    margin: 20px 0;
+}
+
+.Login_Register .login_main{
+    animation: slideLogin linear var(--transition-delay);
+} 
+
+@keyframes slideLogin {
+    0%{
+        transform: translateX(60%);
+        opacity: 0;     
+    }
+
+    100%{
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.Login_Register .login_main.exiting{
+    animation: loginMainExiting linear var(--transition-delay);
+} 
+
+@keyframes  loginMainExiting{
+    0%{
+        transform: translateX(0);
+    }
+
+    100%{
+        transform: translateX(60%);
+        opacity: 0;
+    }
+}
+
+.Login_Register .register_main{
+    animation: slideRegister linear var(--transition-delay);
+} 
+
+@keyframes slideRegister {
+    0%{
+        transform: translateX(-60%);
+        opacity: 0;     
+    }
+
+    100%{
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.Login_Register .register_main.exiting{
+    animation: registerMainExiting linear var(--transition-delay);
+} 
+
+@keyframes registerMainExiting{
+    0%{
+        transform: translateX(0);
+    }
+
+    100%{
+        transform: translateX(-60%);
+        opacity: 0;
+    }
+}
+
+.Login_Register .side_login{
+    animation: slideSideLogin linear var(--transition-delay);
+}
+
+@keyframes slideSideLogin {
+    0%{
+        left: 10%;
+        opacity: 0;
+    }
+
+    100%{
+        left: 50%;
+        opacity: 1;
+    }
+}
+
+.Login_Register .side_login.exiting{
+    animation: slideSideLoginExiting linear var(--transition-delay);
+}
+
+@keyframes slideSideLoginExiting {
+    100%{
+        left: 0;
+        opacity: 0;
+    }
+}
+
+.Login_Register .side_register{
+    animation: slideSideRegister linear var(--transition-delay);
+}
+
+@keyframes slideSideRegister {
+    0%{
+        left: 90%;
+        opacity: 0;
+    }
+
+    100%{
+        left: 50%;
+        opacity: 1;
+    }
+}
+
+.Login_Register .side_register.exiting{
+    animation: slideSideRegisterExiting linear var(--transition-delay);
+}
+
+@keyframes slideSideRegisterExiting {
+    100%{
+        left: 90%;
+        opacity: 0;
+    }
+}
+
+
+
+
+
+
+
+

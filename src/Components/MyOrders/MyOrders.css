@@ -1,0 +1,41 @@
+.my-orders .my-orders-container h3{
+    font-size: 1.75em;
+    margin: 1em 0;
+}
+
+.my-orders .my-orders-container .order{
+    background: #fefefe;
+    box-shadow: 0 0 5px grey;
+    width: 48em;
+    border-radius: 10px;
+    position: relative;
+    justify-content: space-between;
+    margin-top: 1em;
+    padding-right: 15px;
+}
+
+.my-orders .my-orders-container .image{
+    width: 10em;
+    height: 10em;
+}
+
+.my-orders .my-orders-container .image img{
+    width: 100%;
+    height: 100%;
+}
+
+.my-orders .status{
+    font-weight: bold;
+}
+
+.my-orders .status.pending{
+    color: orange;
+}
+
+.my-orders .status.accepted{
+    color: green;
+}
+
+.my-orders .status.sent{
+    color: blue;
+}

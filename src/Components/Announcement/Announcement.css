@@ -1,0 +1,205 @@
+.ann img{
+    width: 20em;
+    height: 20em;
+}
+
+.announcement h3{
+    justify-content: space-between;
+    margin-top: 3em;
+    width: 100%;
+}
+
+.ann h3 p{
+    color: gray;
+    font-size: 15px;
+    font-weight: normal;
+}
+
+.ann{
+    width: 65em;
+    background: #fefefe;
+    margin: 6em 15em;
+    box-shadow: 0 0 10px grey;
+    align-items: start;
+    border-radius: 20px;
+}
+
+.ann .panel{
+    width: 100%;  
+    margin: 0 2em;  
+}
+
+.ann .user-panel>div{
+    margin: 1em 0;
+}
+
+.rating{
+    color: orange;
+}
+
+.ann  .rating .reviews{
+    color: black;
+}
+
+
+.ann  .colors, .ann  .sizes, .ann .amount span{
+    gap: 10px;
+    font-weight: normal;
+    font-size: 14px;
+    margin: 0;
+}
+
+.ann  .color{
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.ann  .color.active, .ann  .size.active{
+    box-shadow: 0 0 12px purple;
+}
+
+.ann  .color.active{
+    border: 2px solid lightgrey;
+}
+
+.ann  .size{
+    border-radius: 15px;
+    cursor: pointer;
+    background: lightgrey;
+    padding: 7px;
+    font-size: 12px;
+}
+
+.ann .amount{
+    gap: 20px;
+}
+
+.ann  .amount-value{
+    border-radius: 20px;
+    background: rgba(180, 135, 180, 0.867);
+    width: 7em;
+}
+
+.ann  .value{
+    width: 40%;
+    background: transparent;
+    border: none;
+    outline: none;
+    text-align: center;
+    color: white;
+}
+
+.ann  .amount p{
+    margin: 0 20px;
+    color: white;
+}
+
+.ann  .amount button{
+    font-size: 20px;
+    color: white;
+    padding: 5px 15px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    width: 30%;
+}
+
+.ann  .amount button.decrease{
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background: var(--backgroundGradient3);
+}
+
+.ann  .amount button.increase{
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    background: var(--backgroundGradient3Reversed);
+}
+
+.ann .add-to-cart{
+    width: 100%;
+    text-align: right;
+    gap: 10px;
+}
+
+.ann .description{
+    width: 100%;
+}
+
+.ann .description{
+    padding: 3em;
+}
+
+.ann .description h3{
+    margin: 0;
+}
+
+
+
+
+
+.announcement .reviews-container{
+    margin: 1em 15em 5em 15em;
+    width: 65em;
+}
+
+.announcement .reviews-container .reviews-user{
+    margin: 1em 0;
+}
+
+.announcement .review-of-user{
+    margin: 15px 0;
+    padding: 20px;
+    border: 1px solid grey;
+    box-shadow: 0 0 5px grey;
+    background: #fefefe;
+    border-radius: 20px;
+}
+
+.reviews-container .user{
+    justify-content: space-between;
+    width: 100%;
+    font-size: 18px;
+    align-items: center;
+    font-weight: bold;
+}
+
+.reviews-container .user .value{
+    gap: 15px;
+}
+
+.review-of-user button{
+    width: fit-content;
+    margin: 0;
+    padding: 1px 15px;
+}
+
+.review-of-user .content{
+    margin-top: 5px;
+}
+
+.reviews-container textarea{
+    width: 100%;
+    resize: none;
+    padding: 10px;
+    font-size: 17px;
+    border: 1px solid grey;
+    outline: none;
+    box-shadow: 0 0 5px grey;
+    border-radius: 10px;
+    background: rgb(237, 236, 236);
+    margin: 5px 0;
+}
+
+.review-of-user .button{
+    text-align: right;
+    margin-top: 5px;
+    justify-content: space-between;
+}
+
+.review-of-user .star{
+    cursor: pointer;
+}
+

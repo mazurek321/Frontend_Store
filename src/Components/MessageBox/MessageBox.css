@@ -1,0 +1,104 @@
+.MessageBox{
+    position: fixed;
+    z-index: 100000;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: all var(--messageBoxDelay) linear;
+    animation: popMessagesBox 500ms linear;
+}
+
+@keyframes popMessagesBox {
+    0%{
+        top: -10em;
+    }
+    100%{
+        top:0;
+    }
+}
+
+.MessageBox.invisible{
+    top: -10em;
+    transition: all var(--messageBoxDelay) linear;
+}
+
+.MessageBox .message{
+    gap: 20px;
+    font-size: 18px;
+    padding: 30px 20px;
+}
+
+.MessageBox span{
+    font-size: 30px;
+}
+
+.MessageBox span.close{
+    font-size: 20px;
+    cursor: pointer;
+    color: black;
+}
+
+.MessageBox .timing{
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    bottom: 0;
+    left: 0;
+    animation: timingMessageBox 5s linear;
+}
+
+@keyframes timingMessageBox {
+    0%{
+        width: 100%;
+    }
+
+    100%{
+        width: 0%;
+    }
+}
+
+
+.MessageBox.cancel{
+    box-shadow: 0 0 10px darkred;
+}
+.MessageBox.cancel .close{
+    color: lightgrey;
+}
+.MessageBox .message.cancel{
+    background: rgb(219, 109, 109);
+    color: darkred;
+}
+.MessageBox span.cancel{
+    color: darkred;
+}
+.MessageBox .timing.cancel{
+    background: darkred;
+}
+
+.MessageBox.info{
+    box-shadow: 0 0 10px darkblue;
+}
+.MessageBox .message.info{
+    background: lightblue;
+    color: darkblue;
+}
+.MessageBox span.info{
+    color: darkblue;
+}
+.MessageBox .timing.info{
+    background: darkblue;
+}
+
+.MessageBox.success{
+    box-shadow: 0 0 10px darkgreen;
+}
+.MessageBox .message.success{
+    background: lightgreen;
+    color: darkgreen;
+}
+.MessageBox span.success{
+    color: darkgreen;
+}
+.MessageBox .timing.success{
+    background: darkgreen;
+}

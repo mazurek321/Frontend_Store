@@ -1,0 +1,112 @@
+nav{
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-shadow: 3px 0 7px grey;
+    height: 100%;
+    background: #fefefe;
+    z-index: 100000;
+}
+
+nav .logo{
+    gap: 10px;
+    padding: 0.5em 1em;
+}
+
+nav .logo h4{
+    color: rgb(71, 10, 71);
+    font-size: 1.5em;
+    font-family: customFont;
+}
+
+nav .logo img{
+    width: 5em;
+}
+
+nav ul li .amount{
+    color: red;
+}
+
+nav ul{
+    list-style-type: none;
+    gap: 40px;
+    width: 100%;
+}
+
+nav ul li{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    color: rgb(71, 10, 71);
+    font-size: 17px;
+    padding: 15px 20px;
+}
+
+nav ul li.active, nav ul li.active:hover{
+    background: var(--backgroundGradient3);
+    font-weight: bold;
+    color: #fefe;
+}
+
+nav ul li:hover{
+    background: #fdfd;
+    font-weight: bold;
+    color: black;   
+}
+
+
+
+nav .top-bar{
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin: 2%;
+    z-index: 100000;
+}
+
+nav .top-bar ul{
+    margin: 0;
+    gap: 15px;
+}
+
+nav .top-bar .search{
+    background: rgb(242, 242, 242);
+    border: 1px solid purple;
+    padding: 5px;
+    position: relative;
+    width: 17em;
+    color: purple;
+}
+
+nav .top-bar .search input{
+    padding: 5px;
+    font-size: 17px;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: purple;
+}
+
+nav .top-bar .search span{
+    position: absolute;
+    right: 10px;
+}
+
+nav .top-bar li:nth-child(2){
+    background: var(--backgroundGradient3);
+    position: relative;
+}
+
+nav .top-bar li:nth-child(3){
+    background: var(--backgroundGradient3Reversed);
+}
+
+nav .top-bar ul li{
+    color: rgb(236, 233, 233);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+

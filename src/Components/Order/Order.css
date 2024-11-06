@@ -1,0 +1,38 @@
+.order h3{
+    font-size: 1.75em;
+    margin: 1em 0;
+}
+
+
+.order .userinfo h3{
+    font-size: 1.25em;
+}
+
+.order .shipment, .order .summary{
+    background: #fefefe;
+    box-shadow:  0 0 5px grey;
+    border-radius: 10px;
+    width: 75%;
+}
+
+.order .shipment select{
+    width: 100%;
+    padding: 30px;
+    font-size: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.order .shipment select{
+    border: none;
+    outline: none;
+}
+
+.order .shipment .choose{
+    color: red;
+}
+
+
+.order .summary{
+    padding: 30px;
+}

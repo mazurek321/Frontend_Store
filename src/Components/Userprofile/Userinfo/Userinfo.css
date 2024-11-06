@@ -1,0 +1,91 @@
+.userinfo{
+    width: 75%;
+    margin-top: 3em;
+}
+
+.userinfo h3{
+    font-size: 1.75em;
+}
+
+.userinfo table{
+    margin: 1em 0;
+    width: 100%;
+}
+
+.userinfo table tr:nth-child(n){
+    background: rgba(255, 166, 0, 0.2);
+}
+
+.userinfo table tr:nth-child(2n){
+    background: rgba(128, 0, 128, 0.2);
+}
+
+.userinfo input{
+    border: none;
+    outline: none;
+    background: transparent;
+    width: 100%;
+    padding: 20px;
+}
+
+.userinfo .joinedAt{
+    padding: 20px;
+    width: 30em;
+}
+
+.userinfo input, .userinfo .joinedAt{
+    font-size: 18px;
+}
+
+.userinfo th{
+    padding: 10px 50px 10px 10px;
+    text-align: left;
+
+}
+
+.userinfo td{
+    width: 80%;
+}
+
+.userinfo input:disabled{
+    color: inherit;
+}
+
+.userinfo input:not(:disabled){
+    background: #dbd1d0;
+}
+
+.userinfo button{
+    font-size: 20px;
+    padding: 10px 50px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.userinfo .buttons{
+    justify-content: right;
+    margin-top: 1em;
+    gap: 10px;
+}
+
+.userinfo button:hover{
+    scale: 0.99;
+}
+
+.userinfo .buttons .edit{
+    border: 1px solid darkblue;
+    background: rgb(32, 131, 207);
+    color: #fefefe;
+}
+
+.userinfo .buttons  .cancel{
+    border: 1px solid darkred;
+    background: rgb(178, 63, 63);
+    color: #fefefe;
+}
+
+.userinfo .buttons  .submit{
+    border:1px solid darkgreen;
+    background: rgb(44, 157, 44);
+    color: #fefefe;
+}

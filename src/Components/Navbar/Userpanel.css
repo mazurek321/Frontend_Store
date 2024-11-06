@@ -1,0 +1,60 @@
+nav .relative{
+    position: relative;
+}
+
+.userpanel{
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: transparent;
+    width: 100%;
+    height: 100%;
+}
+
+.userpanel .box{
+    position: absolute;
+    top: 2.8em;
+    right: 0;
+    margin: 2%;
+    background: #fefefe;
+    border-radius: 10px;
+    box-shadow:  0 0 10px grey;
+}
+
+.userpanel ul li{
+    width: 100%;
+    border-radius: 0 !important;
+    color: black !important;
+    padding: 15px 150px 15px 15px !important;
+}
+
+.userpanel ul li:hover{
+    font-weight: inherit;
+    background: var(--backgroundGradient3);
+}
+
+.userpanel ul li.user-name{
+    display: flex;
+    flex-direction: column;
+    border-top-right-radius: 10px !important;
+    border-top-left-radius: 10px !important;
+    background: #fefe;
+    border-bottom: 2px solid grey;
+}
+
+.userpanel ul li.user-name span{
+    width: 100%;
+}
+
+.userpanel ul li .email{
+    font-size: 14px;
+    color: grey;
+    margin: 0;
+}
+
+.userpanel ul li.logout{
+    border-bottom-right-radius: 10px !important;
+    border-bottom-left-radius: 10px !important;
+    /* margin-top: 3em; */
+    border-top: 2px solid grey;
+}

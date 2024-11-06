@@ -1,0 +1,127 @@
+.cart h3{
+    font-size: 1.75em;
+    margin: 1em 0;
+}
+
+.cart .item{
+    background: #fefefe;
+    box-shadow: 0 0 5px grey;
+    width: 48em;
+    border-radius: 10px;
+    position: relative;
+    justify-content: space-between;
+    margin-top: 1em;
+}
+
+.cart .item .image{
+    width: 10em;
+    height: 10em;
+}
+
+.cart .item .image img{
+    width: 100%;
+    height: 100%;
+}
+
+.cart .item .description{
+    margin: 0 1em;
+}
+
+.cart .item .description h4{
+    margin: 5px 0;
+}
+
+.cart .item .description .size-color{
+    gap: 15px;
+}
+
+.cart .item .buttons{
+    position: absolute;
+    top: 0;
+    right: 0;
+    gap: 5px;
+    padding: 3px;
+}
+
+.cart .item .buttons .delete{
+    background: var(--backgroundGradient3Reversed);
+}
+
+.cart .item .buttons button{
+    padding: 5px 10px;
+    color: #fefe;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    background: var(--backgroundGradient3);
+}
+
+
+.cart .item .amount{
+    background: rgba(180, 135, 180, 0.867);
+    border-radius: 20px;
+    justify-content: space-between;
+    margin: 0 2px;
+}
+
+.cart .item .amount button{
+    font-size: 20px;
+    color: white;
+    padding: 5px 15px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    width: 30%;
+}
+
+.cart .item .amount button.decrease{
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background: var(--backgroundGradient3);
+}
+
+.cart .item .amount button.increase{
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    background: var(--backgroundGradient3Reversed);
+}
+
+.cart .item .amount input{
+    border: none;
+    outline:  none;
+    color: white;
+    border-radius: 20px;
+    width: 3em;
+    background: transparent;
+    text-align: center;
+}
+
+
+
+
+.cart .sum{
+    position: fixed;
+    top: 7em;
+    right: 2%;
+    background: #fefefe;
+    box-shadow: 0 0 5px grey;
+    border-radius: 10px;
+    padding: 20px 20px 0 10px;
+    width: 25em;
+}
+
+.cart .sum button{
+    width: 100%;
+    margin: 2em 0;
+}
+
+.cart .sum h4{
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
