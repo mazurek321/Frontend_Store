@@ -39,7 +39,7 @@ nav .relative{
     flex-direction: column;
     border-top-right-radius: 10px !important;
     border-top-left-radius: 10px !important;
-    background: var(--backgroundGradient);
+    background: var(--backgroundGradient1);
     border-bottom: 2px solid grey;
     color: white !important;
 }

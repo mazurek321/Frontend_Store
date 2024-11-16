@@ -4,6 +4,7 @@ import Navbar from '../Navbar/Navbar'
 import { Link } from 'react-router-dom'
 import Baner from '../Baner/Baner'
 import Announcement from './Announcement/Announcement'
+import Footer from '../Footer/Footer'
 
 const HomePage = () => {
   const left = useRef()
@@ -42,6 +43,8 @@ const HomePage = () => {
         <Announcement/>
         <Announcement/>
       </div>
+
+      <Footer/>
     </div>
   )
 }

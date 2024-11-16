@@ -1,0 +1,13 @@
+.footer{
+    background: rgb(60, 60, 60);
+    color: white;
+    text-align: center;
+}
+
+.footer .top{
+    justify-content: space-between;
+}
+
+.footer .bottom{
+    background: #1d1d1d;
+}
