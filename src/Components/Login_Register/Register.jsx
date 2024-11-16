@@ -1,7 +1,55 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 const Register = ({setClicked, exiting}) => {
+
+    const logged = localStorage.getItem('logged')
+
+    const [data, setData] = useState({
+        email: "",
+        name: "",
+        lastname: "",
+        password: "",
+        confirmPassword: "",
+        address: "",
+        location: "",
+        postCode: "",
+        phone: ""
+    })
+
+    const handleRegister = async (e) => {
+        e.preventDefault();
+        
+        try{
+
+            if(logged){
+                navigate("/");
+                return;
+            }
+
+            const response = await axios.post('http://localhost:5050/Users/register', {
+                email,
+                name,
+                lastname,
+                password,
+                confirmPassword,
+                address,
+                location,
+                postCode,
+                phone
+            });
+
+        }catch(err){
+            console.log("ERROR WHILE REGISTERRING.")
+        }
+    }
+
+    useEffect(()=>{
+        if(logged){
+            navigate("/");
+            return;
+        }
+    }, [])
 
   return (
         <div className={`register_main main ${exiting && 'exiting'}`}>
@@ -13,7 +61,7 @@ const Register = ({setClicked, exiting}) => {
                 <h4>Already have an account ? <span onClick={()=>{setClicked(false)}}>Login</span></h4>
             </div>
             <div className="register_form">
-                <form>
+                <form onSubmit={handleRegister}>
                     <label htmlFor="name">
                         <input type="text" placeholder='Name'/>
                     </label>

@@ -44,7 +44,7 @@
 }
 
 .saved .item .buttons .delete{
-    background: var(--backgroundGradient3Reversed);
+    background: var(--backgroundGradientReversed);
 }
 
 .saved .item .buttons button{
@@ -56,5 +56,5 @@
     display: flex;
     align-items: center;
     border-radius: 5px;
-    background: var(--backgroundGradient3);
+    background: var(--backgroundGradient);
 }

@@ -109,13 +109,13 @@
 .ann  .amount button.decrease{
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
-    background: var(--backgroundGradient3);
+    background: var(--backgroundGradient);
 }
 
 .ann  .amount button.increase{
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
-    background: var(--backgroundGradient3Reversed);
+    background: var(--backgroundGradient);
 }
 
 .ann .add-to-cart{

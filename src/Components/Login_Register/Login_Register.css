@@ -117,7 +117,7 @@
     position: absolute;
     right: 0;
     top: 0;
-    background: var(--backgroundGradient3Reversed);
+    background: var(--backgroundGradient1);
     z-index: -1;
     animation: backgroundAnimation 2s linear infinite;
     transition: all var(--transition-delay) linear;
@@ -125,7 +125,7 @@
 
 .Login_Register .background.left{
     right: 50%;
-    background: var(--backgroundGradient3);
+    background: var(--backgroundGradient1);
     transition: all var(--transition-delay) linear;
 }
 

@@ -24,12 +24,12 @@ const Login = ({setClicked, exiting}) => {
                 return;
             }
 
-            const response = await axios.post('http://localhost:5050/Users/login', {
-                email,
-                password
-            });
+            // const response = await axios.post('http://localhost:5050/Users/login', {
+            //     email,
+            //     password
+            // });
 
-            localStorage.setItem("token", response.data)
+            // localStorage.setItem("token", response.data)
             localStorage.setItem("logged", true)
             navigate("/")
 

@@ -8,6 +8,7 @@ import MessageBox from '../MessageBox/MessageBox'
 const Navbar = ({active}) => {
   const [clicked, setClicked] = useState(false)
   const [visible, setVisible] = useState(false)
+  const logged = localStorage.getItem("logged")
   let timer;
 
   const handleContactUs = () => {
@@ -25,43 +26,42 @@ const Navbar = ({active}) => {
   return (
     <nav className='flex'>
         {visible && <MessageBox action={"info"} message={"You cannot contact us, sorry."}/>}
+        
         <div className="logo">            
             <Link to="/" className='flex'>
                 <img src={logo} alt="logo of the store" />
                 <h4>SaintsRow</h4>
             </Link>   
         </div>
-        <ul>
-            <Link to="/"><li className={`${active == 'home' && 'active'}`}><span className="material-symbols-outlined">home</span>Home</li></Link>
-            {/* <Link to="/"><li className={`${active == 'explore' && 'active'}`}><span className="material-symbols-outlined">explore</span>Explore</li></Link> */}
-            <Link to="/saved"><li className={`${active == 'saved' && 'active'}`}><span className="material-symbols-outlined">favorite</span>Saved</li></Link>
-            <Link to="/authorization"><li className={`${active == 'profile' && 'active'}`}><span className="material-symbols-outlined">person</span>Profile</li></Link>
-            <Link to="/shopping-cart"><li className={`${active == 'cart' && 'active'}`}>
-                <span className="material-symbols-outlined">shopping_cart</span>
-                    Cart
-                    {/* <div className="amount">0</div> */}
+        <ul className='flex'>
+            <Link to="/"><li className={`${active == 'home' && 'active'}`}>Home</li></Link>
+            <Link to="/"><li className={`${active == 'explore' && 'active'}`}>Explore</li></Link>
+            <Link to={`${logged ? "/saved" : "/authorization"}`}><li className={`${active == 'saved' && 'active'}`}>Saved</li></Link>
+                <Link to={`${logged ? "/messages" : "/authorization"}`}><li className={`${active == 'messages' && 'active'}`}>
+                Messages
                 </li></Link>
-            <Link to="/messages"><li className={`${active == 'messages' && 'active'}`}>
-                <span className="material-symbols-outlined">orders</span>Messages
-                    {/* <div className="amount">0</div> */}
-                </li></Link>
-            <li onClick={()=>{handleContactUs()}}><span className="material-symbols-outlined">call</span>Contact us</li>
+            <li onClick={()=>{handleContactUs()}}>Contact us</li>
         </ul>
-        <div className="top-bar">
-            <ul className='flex'>
-                <li className='search'>
-                    <input type="text" />
-                    <span className="material-symbols-outlined icon">search</span>
-                </li>
-                <li>
-                    <Link to="/shopping-cart"><span className="material-symbols-outlined">shopping_cart</span></Link>
-                </li>
-                <li className='relative' onClick={()=>{setClicked(!clicked)}}>
-                    <span className="material-symbols-outlined">person</span>
-                </li>
-                {clicked && <Userpanel setClicked={setClicked}/>}
-            </ul>
-        </div>
+        {logged ? (
+                        <>
+                            <div className={`${active == 'profile filled' && 'active'} flex profile-container`} onClick={()=>setClicked(!clicked)}>
+                                <span className="material-symbols-outlined">person</span>Magda Gessler
+                                <Link to={`${logged ? "/shopping-cart" : "/authorization"}`} className='cart flex'>
+                                    <span className="material-symbols-outlined">shopping_cart</span> Cart
+                                </Link>
+                            </div>
+                            {clicked && <Userpanel setClicked={setClicked} />}
+                        </>
+                        ) : (
+                        <Link to="/authorization" className='flex'>
+                             <div className='flex profile-container' onClick={()=>setClicked(!clicked)}>
+                                <span className="material-symbols-outlined">person</span>Profile
+                                <Link to={`${logged ? "/shopping-cart" : "/authorization"}`} className='cart flex'>
+                                    <span className="material-symbols-outlined">shopping_cart</span> Cart
+                                </Link>
+                            </div>
+                        </Link>
+        )}
     </nav>
   )
 }

@@ -4,7 +4,7 @@ nav .relative{
 
 .userpanel{
     position: fixed;
-    top: 0;
+    top: -15px;
     left: 0;
     background: transparent;
     width: 100%;
@@ -26,11 +26,12 @@ nav .relative{
     border-radius: 0 !important;
     color: black !important;
     padding: 15px 150px 15px 15px !important;
+    justify-content: left;
 }
 
 .userpanel ul li:hover{
     font-weight: inherit;
-    background: var(--backgroundGradient3);
+    background: #fefe;
 }
 
 .userpanel ul li.user-name{
@@ -38,8 +39,9 @@ nav .relative{
     flex-direction: column;
     border-top-right-radius: 10px !important;
     border-top-left-radius: 10px !important;
-    background: #fefe;
+    background: var(--backgroundGradient);
     border-bottom: 2px solid grey;
+    color: white !important;
 }
 
 .userpanel ul li.user-name span{
@@ -48,13 +50,18 @@ nav .relative{
 
 .userpanel ul li .email{
     font-size: 14px;
-    color: grey;
+    color: lightgrey;
     margin: 0;
 }
 
 .userpanel ul li.logout{
     border-bottom-right-radius: 10px !important;
     border-bottom-left-radius: 10px !important;
-    /* margin-top: 3em; */
     border-top: 2px solid grey;
+    background: var(--backgroundGradientUpsideDown);
+}
+
+.userpanel ul li.logout span,
+.userpanel ul li.logout{
+    /* color: white !important; */
 }

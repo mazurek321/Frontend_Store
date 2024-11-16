@@ -1,7 +1,3 @@
-.homePage .main{
-    padding: 2% 16em;
-}
-
 .homePage .latest-added{
     padding: 10px;
     font-weight: bold;
@@ -15,3 +11,23 @@
     color: grey;
     margin: 5px 30px;
 }
+
+.homePage h3.section-header{
+    width: 100%;
+    background: var(--backgroundGradient1Straight);
+    font-size: 20px;
+    color: #fefe;
+    justify-content: space-between;
+}
+
+.homePage .icon{
+    cursor: pointer;
+}
+
+.section{
+    row-gap: 3em;   
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    overflow: hidden;
+}
+
