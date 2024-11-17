@@ -1,6 +1,10 @@
+.saved{
+    /* background: red; */
+    margin-top: 3em;
+}
+
 .saved h3{
     font-size: 1.75em;
-    margin: 1em 0;
 }
 
 .saved .item{
@@ -41,10 +45,6 @@
     right: 0;
     gap: 5px;
     padding: 3px;
-}
-
-.saved .item .buttons .delete{
-    background: var(--backgroundGradientReversed);
 }
 
 .saved .item .buttons button{

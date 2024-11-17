@@ -1,17 +1,18 @@
 .announcement{
     box-shadow: 0 0 5px grey;
     border-radius: 10px;
-    width: 16em;
     padding: 1%;
     position: relative;
     transition: 100ms all;
+    flex-basis: 18em;
+    flex-shrink: 0;
+    flex-grow: 0;
 }
 
 .announcement:hover{
     scale: 1.02;
     transition: 100ms all;
     box-shadow: 0 0 10px purple;
-    cursor: pointer;
     background: rgba(255, 235, 255, 0.933);
 }
 
@@ -43,6 +44,8 @@
 .announcement h5{
     font-size: 16px;
     text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .announcement .colors, 
@@ -127,7 +130,7 @@
 .announcement .styledButton{
     margin: 0;
     width: 80%;
-    background: var(--backgroundGradient1);
+    /* background: var(--backgroundGradient); */
     font-size: 17px;
 }
 

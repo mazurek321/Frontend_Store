@@ -2,12 +2,44 @@
     background: rgb(60, 60, 60);
     color: white;
     text-align: center;
+    font-size: 15px;
 }
 
 .footer .top{
     justify-content: space-between;
+    margin: 0;
+    padding: 2em 7%;
+}
+
+.footer .top p{
+    margin: 10px;
+}
+
+.footer .top span{
+    margin: 5px;
 }
 
 .footer .bottom{
     background: #1d1d1d;
+    font-size: 14px;
+}
+
+.footer ul{
+    list-style: none;
+}
+
+.footer ul li{
+    margin: 10px;
+}
+
+.footer .left,
+.footer .middle,
+.footer .right
+{
+    width: 33%;
+}
+
+.footer iframe{
+    width: 400px;
+    height: 200px;
 }

@@ -28,9 +28,6 @@ body{
     'FILL' 1
   }
 
-.main{
-    padding: 2% 18em;
-}
 
 a{
     color: inherit;
@@ -95,7 +92,11 @@ input[type="radio"]:checked + .radioButton::after{
 }
 
 .container{
-    padding: 1% 12%;
+    padding: 3% 8%;
+}
+
+.headerContainer{
+    padding: 1% 8%;
 }
 
 form .visibility{

@@ -7,7 +7,7 @@ const Saved = () => {
   return (
     <div className='saved'>
         <Navbar active={"saved"}/>
-        <div className="saved-container main">
+        <div className="saved-container container">
             <h3>Saved announcements</h3>
             <Item/>  
             <Item/>

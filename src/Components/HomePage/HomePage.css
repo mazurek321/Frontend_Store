@@ -24,10 +24,47 @@
     cursor: pointer;
 }
 
-.section{
-    row-gap: 3em;   
-    justify-content: space-evenly;
-    flex-wrap: wrap;
+.homePage .section{
     overflow: hidden;
 }
 
+.homePage .section,
+.homePage .section .items{
+    display: flex;
+    justify-content: flex-start;
+    align-items: stretch;
+    white-space: nowrap;
+    gap: 40px; 
+    flex-basis: 18em;
+    transition: all 500ms linear;
+    position: relative;
+}
+
+.homePage .section.last-added{
+    justify-content: center;
+}
+
+.homePage .arrows{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100vw;
+    justify-content: space-between;
+}
+
+
+.homePage .arrows .left,
+.homePage .arrows .right 
+{
+    background: linear-gradient(to right, transparent,transparent,rgba(0, 0, 0, 0.5));
+    width: 200px;
+    height: 100%;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+}
+
+.homePage .arrows .left{
+    background: linear-gradient(to left, transparent,transparent,rgba(0, 0, 0, 0.5));
+}

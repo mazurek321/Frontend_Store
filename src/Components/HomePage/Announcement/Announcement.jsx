@@ -74,7 +74,7 @@ const Announcement = () => {
           <span className="material-symbols-outlined slideRight arrow">arrow_forward_ios</span>
         </div>
 
-        <h5>Słuchawki narazie jakieś takie</h5>
+        <h5>Strój narciarski</h5>
 
         <div className="colors flex">
           {displayColors()}

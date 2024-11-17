@@ -22,11 +22,6 @@ const Item = () => {
                 </div>
             </div>
         </Link>
-        <div className="amount flex">
-            <button className='decrease'>-</button>
-            <input type="number" value={1}/>
-            <button className='increase'>+</button>
-        </div>
     </div>
   )
 }
