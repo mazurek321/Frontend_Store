@@ -67,4 +67,5 @@
 
 .homePage .arrows .left{
     background: linear-gradient(to left, transparent,transparent,rgba(0, 0, 0, 0.5));
+    transition: all 200ms linear;
 }

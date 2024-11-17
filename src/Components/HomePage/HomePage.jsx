@@ -10,10 +10,10 @@ const HomePage = () => {
   const [mouseOverLeft, setMouseOverLeft] = useState(false);
   const [mouseOverRight, setMouseOverRight] = useState(false);
   const [intervalId, setIntervalId] = useState(null);
-  const itemWidth = 200;
+  const itemWidth = 288;
   const speed = 500;
   const numItems = 15; 
-  const maxSlide = -(itemWidth * (numItems - 1));
+  const maxSlide = -(itemWidth * (numItems - 2));
 
   const handleSlideRight = () => {
     if (slide > maxSlide) {
@@ -73,15 +73,14 @@ const HomePage = () => {
             className="left"
             onMouseEnter={() => setMouseOverLeft(true)}
             onMouseLeave={() => setMouseOverLeft(false)}
+            style={{opacity: slide < 0 ? 1 : 0}}
           >
-            {/* Optional left arrow icon or styling */}
           </div>
           <div
             className="right"
             onMouseEnter={() => setMouseOverRight(true)}
             onMouseLeave={() => setMouseOverRight(false)}
           >
-            {/* Optional right arrow icon or styling */}
           </div>
         </div>
         <div className="items flex container" style={{ transform: `translateX(${slide}px)` }}>
