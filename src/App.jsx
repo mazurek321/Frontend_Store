@@ -10,6 +10,7 @@ import Logout from "./Components/Logout/Logout"
 import MyOrders from "./Components/MyOrders/MyOrders"
 import MyAnnouncements from "./Components/MyAnnouncements/MyAnnouncements"
 import Announcement from "./Components/Announcement/Announcement"
+import UserSettings from "./Components/Userprofile/UserSettings/UserSettings"
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
           <Route path="/authorization" element={<Login_Register/>}></Route>
           <Route path="/announcement" element={<Announcement/>}></Route>
           <Route path="/profile" element={<Userprofile/>}></Route>
+          <Route path="/profile/settings" element={<UserSettings/>}></Route>
           <Route path="/saved" element={<Saved/>}></Route>
           <Route path="/shopping-cart" element={<Cart/>}></Route>
           <Route path="/order" element={<Order/>}></Route>

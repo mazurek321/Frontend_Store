@@ -48,12 +48,21 @@
     overflow: hidden;
 }
 
+.announcement .price{
+    text-align: center;
+    margin: 5px 0;
+}
+
+.announcement .price span{
+    color: purple;
+}
+
 .announcement .colors, 
 .announcement .sizes{
     gap: 5px;
     flex-wrap: wrap;
     justify-content: center;
-    margin: 15px 0;
+    margin: 10px 0;
 }
 
 .announcement .colors span.color{

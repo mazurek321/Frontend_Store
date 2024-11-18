@@ -2,9 +2,12 @@
     --backgroundGradient: linear-gradient(to top, #6a85b6 0%, #bac8e0 100%);
     --backgroundGradient1: linear-gradient(to right bottom,rgb(53, 92, 125), rgb(108, 91, 123), rgb(192, 108, 132));
     --backgroundGradient1Straight: linear-gradient(to right,rgb(53, 92, 125), rgb(108, 91, 123), rgb(192, 108, 132));
-   
+    --buttonColor: #9b27af;
+
     --transition-delay : 250ms;
     --messageBoxDelay: 1s;
+
+    --panel-width: 60%;
 }
 
 @font-face {
@@ -69,7 +72,7 @@ input[type="radio"]:checked + .radioButton::after{
     margin: 50px 0;
     border: none;
     outline: none;
-    background: #9b27af;
+    background: var(--buttonColor);
     color: white;
     font-weight: bold;
     font-size: 20px;
@@ -92,11 +95,11 @@ input[type="radio"]:checked + .radioButton::after{
 }
 
 .container{
-    padding: 3% 8%;
+    padding: 2% 4%;
 }
 
 .headerContainer{
-    padding: 1% 8%;
+    padding: 1% 4%;
 }
 
 form .visibility{

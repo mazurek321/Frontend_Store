@@ -25,7 +25,7 @@ const Userpanel = ({setClicked}) => {
               <Link to="/my-orders"><li><span className="material-symbols-outlined">local_shipping</span>My orders</li></Link>
               <Link to="/my-announcements"><li><span className="material-symbols-outlined">tooltip_2</span>My Announcements</li></Link>
               <Link to="/messages"><li><span className="material-symbols-outlined">orders</span>Messages</li></Link>
-              <Link to="/profile"><li><span className="material-symbols-outlined">settings</span>Settings</li></Link>
+              <Link to="/profile/settings"><li><span className="material-symbols-outlined">settings</span>Settings</li></Link>
               <Link to="/logout"><li className='logout'><span className="material-symbols-outlined">logout</span>Logout</li></Link>
           </ul>
       </div>

@@ -1,12 +1,7 @@
-.messages .messages-container h3{
-    font-size: 1.75em;
-    margin: 1em 0;
-}
-
 .messages .messages-container .message{
     background: #fefefe;
     box-shadow: 0 0 5px grey;
-    width: 48em;
+    width: var(--panel-width);
     border-radius: 10px;
     position: relative;
     justify-content: space-between;
@@ -27,4 +22,5 @@
     width: fit-content;
     padding: 10px 20px;
     margin-right:  10px;
+    background: var(--backgroundGradient);
 }

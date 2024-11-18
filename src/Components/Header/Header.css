@@ -1,0 +1,23 @@
+.container .header{
+    margin-top: 4em;
+    width: var(--panel-width);
+    justify-content: space-between;
+    font-size: 1.5em;
+}
+
+.container .header .icons{
+    gap: 20px;
+}
+
+.container .header .icons div{
+    cursor: pointer;
+    gap: 5px;
+    background: var(--buttonColor);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.container .header .icons{
+    font-size: 16px;
+}

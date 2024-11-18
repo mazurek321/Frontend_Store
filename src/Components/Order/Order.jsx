@@ -1,7 +1,6 @@
 import React from 'react'
 import "./Order.css"
 import Navbar from '../Navbar/Navbar'
-import Userinfo from '../Userprofile/Userinfo/Userinfo'
 
 const Order = () => {
   return (
@@ -9,7 +8,6 @@ const Order = () => {
         <Navbar active={"cart"}/>
         <div className="order-container main">
             <h3>Finishing order</h3>
-            <Userinfo/>
 
             <h3>Select shipment</h3>
             <div className="shipment">

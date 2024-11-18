@@ -76,6 +76,10 @@ const Announcement = () => {
 
         <h5>Strój narciarski</h5>
 
+        <div className="price">
+          <span>299.99 zł</span>
+        </div>
+
         <div className="colors flex">
           {displayColors()}
         </div>

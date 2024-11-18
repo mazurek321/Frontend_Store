@@ -1,8 +1,3 @@
-.cart h3{
-    font-size: 1.75em;
-    margin: 1em 0;
-}
-
 .cart .item{
     background: #fefefe;
     box-shadow: 0 0 5px grey;
@@ -40,11 +35,11 @@
     top: 0;
     right: 0;
     gap: 5px;
-    padding: 3px;
+    padding: 10px;
 }
 
 .cart .item .buttons .delete{
-    background: var(--backgroundGradientReversed);
+    background: var(--backgroundGradient1);
 }
 
 .cart .item .buttons button{
@@ -56,7 +51,7 @@
     display: flex;
     align-items: center;
     border-radius: 5px;
-    background: var(--backgroundGradient);
+    background: var(--backgroundGradient1);
 }
 
 
@@ -80,13 +75,13 @@
 .cart .item .amount button.decrease{
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
-    background: var(--backgroundGradient);
+    background: var(--backgroundGradient1);
 }
 
 .cart .item .amount button.increase{
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
-    background: var(--backgroundGradientReversed);
+    background: var(--backgroundGradient1);
 }
 
 .cart .item .amount input{
@@ -104,13 +99,13 @@
 
 .cart .sum{
     position: fixed;
-    top: 7em;
-    right: 2%;
+    top: 11em;
+    right: 4%;
     background: #fefefe;
     box-shadow: 0 0 5px grey;
     border-radius: 10px;
-    padding: 20px 20px 0 10px;
-    width: 25em;
+    padding: 20px 30px 0 30px;
+    width: 30em;
 }
 
 .cart .sum button{
@@ -123,5 +118,17 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.cart .sum h4 span{
+    font-weight: normal;
+}
+
+.cart .sum select{
+    border: none;
+    outline: none;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 20px;
 }
 

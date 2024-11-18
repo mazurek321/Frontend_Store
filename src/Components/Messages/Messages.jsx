@@ -3,13 +3,16 @@ import "./Messages.css"
 import Navbar from '../Navbar/Navbar'
 import headphones from "../../assets/sluchawki.webp"
 import { Link } from 'react-router-dom'
+import Header from '../Header/Header'
 
 const Messages = () => {
   return (
     <div className='messages'>
          <Navbar active={"messages"}/>
-         <div className="messages-container main">
-            <h3>Messages</h3>
+         <div className="messages-container container">
+          
+           <Header text="Messages" icons={true}/>
+
             <div className="message flex">
               <Link to="/" className='flex'>
                   <div className="image">

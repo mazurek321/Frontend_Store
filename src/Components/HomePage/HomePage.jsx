@@ -102,6 +102,49 @@ const HomePage = () => {
         </div>
       </div>
 
+
+
+
+
+      <h3 className='section-header headerContainer flex'>
+        Gloves
+        <span className="material-symbols-outlined icon">arrow_forward_ios</span>
+      </h3>
+      <div className="section container flex">
+        <div className="arrows flex">
+          <div
+            className="left"
+            onMouseEnter={() => setMouseOverLeft(true)}
+            onMouseLeave={() => setMouseOverLeft(false)}
+            style={{opacity: slide < 0 ? 1 : 0}}
+          >
+          </div>
+          <div
+            className="right"
+            onMouseEnter={() => setMouseOverRight(true)}
+            onMouseLeave={() => setMouseOverRight(false)}
+          >
+          </div>
+        </div>
+        <div className="items flex container" style={{ transform: `translateX(${slide}px)` }}>
+          <Announcement />
+          <Announcement />
+          <Announcement />
+          <Announcement />
+          <Announcement />
+          <Announcement />
+          <Announcement />
+          <Announcement />
+          <Announcement />
+          <Announcement />
+          <Announcement />
+          <Announcement />
+          <Announcement />
+          <Announcement />
+          <Announcement />
+        </div>
+      </div>
+
       <Footer />
     </div>
   );

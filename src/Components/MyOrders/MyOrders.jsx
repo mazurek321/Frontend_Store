@@ -3,13 +3,16 @@ import "./MyOrders.css"
 import headphones from "../../assets/sluchawki.webp"
 import Navbar from '../Navbar/Navbar'
 import { Link } from 'react-router-dom'
+import Header from '../Header/Header'
 
 const MyOrders = () => {
   return (
     <div className='my-orders'>
         <Navbar active={"profile"}/>
-        <div className="my-orders-container main">
-            <h3>My orders</h3>
+        <div className="my-orders-container container">
+
+            <Header text="My orders" icons={true}/>
+
             <div className="order flex">
                 <Link to="/" className='flex'>
                     <div className="image">
