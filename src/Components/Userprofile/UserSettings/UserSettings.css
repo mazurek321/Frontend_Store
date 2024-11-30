@@ -1,5 +1,6 @@
 .user-info{
     margin: 1em 0;
+    width: var(--panel-width);
 }
 
 
@@ -19,7 +20,7 @@
 }
 
 .userSettings fieldset{
-    width: var(--panel-width);
+    width: 100%;
     border-radius: 10px;
     background: #fdfdfd;
 }
@@ -29,7 +30,7 @@
 }
 
 .userSettings .buttons{
-    width: var(--panel-width);
+    width: 100%;
     justify-content: right;
 }
 
@@ -40,6 +41,9 @@
 
 
 
+.user-password{
+    width: var(--panel-width);
+}
 
 .user-password div{
     position: relative;
@@ -60,11 +64,19 @@
     padding: 10px;
     outline: none;
     border: none;
-    background: #fefefe;
+    background: #e3e3e3;
 }
 
 .user-password div input:focus + label{
     background: #fefefe;
     top: 0;
     font-size: 12px;
+}
+
+.styledButton.cancel{
+    background: red;
+}
+
+.styledButton.submit{
+    background: green;
 }

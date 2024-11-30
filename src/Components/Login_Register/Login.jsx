@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 
-const Login = ({setClicked, exiting}) => {
+const Login = ({setClicked, exiting, setVisible, setMessage, user, setUser,}) => {
 
     const [checkedButton, isCheckedButton] = useState(false)
     const [email, setEmail] = useState('')
@@ -24,17 +24,46 @@ const Login = ({setClicked, exiting}) => {
                 return;
             }
 
-            // const response = await axios.post('http://localhost:5050/Users/login', {
-            //     email,
-            //     password
-            // });
+            const response = await axios.post('http://localhost:5050/Users/login', {
+                email,
+                password
+            })
 
-            // localStorage.setItem("token", response.data)
+            var token = response.data
+            localStorage.setItem("token", token)
             localStorage.setItem("logged", true)
+
+            const userResponse = await axios.get('http://localhost:5050/Users/me', {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            var data = userResponse.data
+
+            const userData = {
+                id: data.id.value,
+                name: data.name.value,
+                lastName: data.lastName.value,
+                email: data.email.value,
+                phone: data.phone?.value || '',
+                address: data.address?.value || '',
+                postCode: data.postCode?.value || '',
+                location: data.location?.value || '',
+                role: data.role.value,
+                createdAt: data.createdAt
+            };
+
+            localStorage.setItem("user", JSON.stringify(userData));
+
+            setUser(userData);
+            
             navigate("/")
 
         }catch(err){
             console.log("ERROR WHILE LOGGING.")
+            setMessage("Wrong email or password.")
+            setVisible(true)
         }
     }
 

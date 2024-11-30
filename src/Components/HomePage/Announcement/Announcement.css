@@ -138,6 +138,7 @@
 
 .announcement .styledButton{
     margin: 0;
+    margin-bottom: 1em;
     width: 80%;
     /* background: var(--backgroundGradient); */
     font-size: 17px;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-const Register = ({setClicked, exiting}) => {
+const Register = ({setClicked, exiting, setVisible, setMessage}) => {
 
     const logged = localStorage.getItem('logged')
 
@@ -41,6 +41,8 @@ const Register = ({setClicked, exiting}) => {
 
         }catch(err){
             console.log("ERROR WHILE REGISTERRING.")
+            setMessage("Something went wrong.")
+            setVisible(true)
         }
     }
 

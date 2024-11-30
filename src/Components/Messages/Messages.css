@@ -1,4 +1,5 @@
-.messages .messages-container .message{
+.messages .messages-container .message
+{
     background: #fefefe;
     box-shadow: 0 0 5px grey;
     width: var(--panel-width);

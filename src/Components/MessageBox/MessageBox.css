@@ -23,9 +23,9 @@
 }
 
 .MessageBox .message{
-    gap: 20px;
-    font-size: 18px;
-    padding: 30px 20px;
+    gap: 20px !important;
+    font-size: 18px !important;
+    padding: 30px 20px !important;
 }
 
 .MessageBox span{

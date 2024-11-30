@@ -3,34 +3,45 @@
     height: 20em;
 }
 
-.announcement h3{
-    justify-content: space-between;
-    margin-top: 3em;
-    width: 100%;
-}
-
-.ann h3 p{
-    color: gray;
-    font-size: 15px;
-    font-weight: normal;
-}
-
 .ann{
-    width: 65em;
+    width: var(--panel-width);
     background: #fefefe;
     margin: 6em 15em;
     box-shadow: 0 0 10px grey;
-    align-items: start;
     border-radius: 20px;
 }
 
-.ann .panel{
-    width: 100%;  
-    margin: 0 2em;  
+.ann .top{
+    justify-content: space-between;
+    width: 100%;
 }
 
-.ann .user-panel>div{
-    margin: 1em 0;
+.ann .top .panel{
+    width: 60%;
+    background: #fefe;
+    padding: 30px;
+    border-radius: 10px;
+    border: 1px solid lightgrey;
+}
+
+.ann .top h3{
+    justify-content: space-between;
+}
+
+.ann .panel div{
+    margin-top: 1em;
+}
+
+.ann .top h3 p{
+    color: grey;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.ann .panel button.styledButton{
+    width: 200px;
+    margin: 0;
+    margin-top: 1em;
 }
 
 .rating{
@@ -76,10 +87,11 @@
     gap: 20px;
 }
 
-.ann  .amount-value{
+.ann .amount .amount-value{
     border-radius: 20px;
     background: rgba(180, 135, 180, 0.867);
     width: 7em;
+    margin: 0;
 }
 
 .ann  .value{
@@ -118,38 +130,25 @@
     background: var(--backgroundGradient);
 }
 
-.ann .add-to-cart{
+
+.add-to-cart{
+    gap: 2em;
+}
+
+
+
+
+.main-announcement .reviews-container{
     width: 100%;
-    text-align: right;
-    gap: 10px;
+    margin-top: -8em;
+    padding: 0;
 }
 
-.ann .description{
-    width: 100%;
+.main-announcement .reviews-container .reviews-user{
+    width: var(--panel-width);
 }
 
-.ann .description{
-    padding: 3em;
-}
-
-.ann .description h3{
-    margin: 0;
-}
-
-
-
-
-
-.announcement .reviews-container{
-    margin: 1em 15em 5em 15em;
-    width: 65em;
-}
-
-.announcement .reviews-container .reviews-user{
-    margin: 1em 0;
-}
-
-.announcement .review-of-user{
+.main-announcement .review-of-user{
     margin: 15px 0;
     padding: 20px;
     border: 1px solid grey;
@@ -203,3 +202,23 @@
     cursor: pointer;
 }
 
+
+.option-button {
+    padding: 8px 12px;
+    margin: 4px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.option-button:hover {
+    background-color: #e0e0e0;
+}
+
+.option-button.selected {
+    background: var(--backgroundGradient);
+    color: white;
+    border-color: purple;
+}

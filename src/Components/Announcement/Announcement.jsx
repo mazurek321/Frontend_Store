@@ -1,29 +1,80 @@
-import React, { useState } from 'react'
-import "./Announcement.css"
-import Navbar from '../Navbar/Navbar'
-import headphones from "../../assets/sluchawki.webp"
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import "./Announcement.css";
+import Navbar from '../Navbar/Navbar';
+import headphones from "../../assets/sluchawki.webp";
+import { useLocation } from 'react-router-dom';
+import Header from '../Header/Header';
+import axios from 'axios';
+import MessageBox from '../MessageBox/MessageBox';
 
+const Announcement = ({ user }) => {
+    const [color, setColor] = useState(null);
+    const [size, setSize] = useState(null);
+    const [amount, setAmount] = useState(1);
+    const [rating, setRating] = useState(0);
+    const [hoverRating, setHoverRating] = useState(0);
+    const location = useLocation();
+    const [id, setId] = useState(null);
+    const [announcement, setAnnouncement] = useState(null);
+    const [visible, setVisible] = useState(false);
+    const [message, setMessage] = useState("Error");
+    const [action, setAction] = useState("cancel");
+    const [reviews, setReviews] = useState([]); 
+    const [comment, setComment] = useState('');
+    const [userEmails, setUserEmails] = useState({}); // State to store user emails
+    let timer;
 
-const Announcement = () => {
+    useEffect(() => {
+        timer = setTimeout(() => {
+            setVisible(false);
+        }, 6000);
+        return () => {
+            clearTimeout(timer);
+        };
+    }, [visible]);
 
-    const [color, setColor] = useState(null)
-    const [size, setSize] = useState(null)
-    const [amount, setAmount] = useState(1)
-    const [rating, setRating] = useState(0)
-    const [hoverRating, setHoverRating] = useState(0) 
+    useEffect(() => {
+        const queryParams = new URLSearchParams(location.search);
+        const id = queryParams.get('announcementId');
+        setId(id);
+        if (id) {
+            axios.get(`http://localhost:5050/Announcement?announcementId=${id}`)
+                .then(response => {
+                    setAnnouncement(response.data);
+                })
+                .catch(error => console.error(error));
 
-    const handleMouseEnter = (i) => {
-        setHoverRating(i + 1) 
-    }
+            axios.get(`http://localhost:5050/Reviews?announcementId=${id}`)
+                .then(response => {
+                    setReviews(response.data);
+                    // Fetch the email for each review owner
+                    response.data.forEach(review => {
+                        if (review.ownerId && review.ownerId.value) {
+                            fetchUserEmail(review.ownerId.value);
+                        }
+                    });
+                })
+                .catch(error => console.error(error));
+        }
+    }, [location.search]);
 
-    const handleMouseLeave = () => {
-        setHoverRating(0)  
-    }
-    
+    const fetchUserEmail = async (userId) => {
+        try {
+            const response = await axios.get(`http://localhost:5050/Users/user?userId=${userId}`);
+            setUserEmails(prevState => ({
+                ...prevState,
+                [userId]: response.data.email.value, // Store email by userId
+            }));
+        } catch (error) {
+            console.error('Error fetching user email:', error);
+        }
+    };
+
+    const handleMouseEnter = (i) => setHoverRating(i + 1);
+    const handleMouseLeave = () => setHoverRating(0);
 
     const displayInputRating = () => {
-        const totalStars = 5
+        const totalStars = 5;
         return Array.from({ length: totalStars }, (_, i) => (
             <span
                 className="material-symbols-outlined star"
@@ -37,76 +88,214 @@ const Announcement = () => {
             >
                 grade
             </span>
-        ))
-    }
+        ));
+    };
 
-    const displayRating = () => {
-        const rating = 4
-        return Array.from({length: rating}, (_, i)=>(
+    const displayRating = (value) => {
+        const rating = value;
+        return Array.from({ length: rating }, (_, i) => (
             <span className="material-symbols-outlined star filled" key={i}>grade</span>
-        ))
-    }
+        ));
+    };
 
-    const displayColors = () => {
-        const colors = ["red", "blue", "green"]
-        return Array.from({ length: colors.length }, (_, i) => (
-            <span
-                className={`color ${i} ${color === i && 'active'}`}
-                key={i}
-                style={{ background: colors[i] }}
-                onClick={() => setColor(i)}
-            ></span>
-        ))
-    }
+    const displayColorAndSizes = () => {
+        if (announcement[0]?.item?.colorsSizesAmounts) {
+            return (
+                <div className="color-size-amounts">
+                    <h4>Choose Color:</h4>
+                    <div className="color-options">
+                        {Object.keys(announcement[0].item.colorsSizesAmounts).map((availableColor) => (
+                            <button
+                                key={availableColor}
+                                className={`option-button ${color === availableColor ? 'selected' : ''}`}
+                                onClick={() => setColor(availableColor)}
+                            >
+                                {availableColor}
+                            </button>
+                        ))}
+                    </div>
 
-    const displaySizes = () => {
-        const sizes = ["XS", "M", "XL"]
-        return Array.from({ length: sizes.length }, (_, i) => (
-            <span
-                className={`size ${i} ${size === i && 'active'}`}
-                key={i}
-                onClick={() => setSize(i)}
-            >
-                {sizes[i]}
-            </span>
-        ))
-    }
+                    {color && (
+                        <>
+                            <h4>Choose Size:</h4>
+                            <div className="size-options">
+                                {Object.keys(announcement[0].item.colorsSizesAmounts[color]).map((availableSize) => (
+                                    <button
+                                        key={availableSize}
+                                        className={`option-button ${size === availableSize ? 'selected' : ''}`}
+                                        onClick={() => setSize(availableSize)}
+                                    >
+                                        {availableSize}
+                                    </button>
+                                ))}
+                            </div>
+                        </>
+                    )}
+                </div>
+            );
+        } else if (announcement[0]?.item?.colorsAmount) {
+            return (
+                <div className="color-amounts">
+                    <h4>Choose Color:</h4>
+                    <div className="color-options">
+                        {Object.keys(announcement[0].item.colorsAmount).map((availableColor) => (
+                            <button
+                                key={availableColor}
+                                className={`option-button ${color === availableColor ? 'selected' : ''}`}
+                                onClick={() => setColor(availableColor)}
+                            >
+                                {availableColor}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            );
+        }
+    };
 
     const handleAmountChange = (command) => {
         if (command === 1) {
-            if (amount <= 1) return
-            setAmount(amount - 1)
+            if (amount <= 1) return;
+            setAmount(amount - 1);
         } else {
-            if (amount >= 100) return
-            setAmount(amount + 1)
+            if (amount >= 100) return;
+            setAmount(amount + 1);
         }
+    };
+
+    const handleAddToCart = async () => {
+        const needsSize = !!announcement[0]?.item?.colorsSizesAmounts;
+        const needsColor = !!announcement[0]?.item?.colorsAmount || !!announcement[0]?.item?.colorsSizesAmounts;
+
+        if ((needsSize && !size) || (needsColor && !color)) {
+            setAction("cancel");
+            setMessage("You need to choose all required options.");
+            setVisible(true);
+            return;
+        }
+
+        if (amount <= 0) {
+            setAction("cancel");
+            setMessage("Quantity must be greater than zero.");
+            setVisible(true);
+            return;
+        }
+
+        try {
+            const response = await axios.post(
+                `http://localhost:5050/ShoppingCart?AnnouncementId=${id}`,
+                {
+                    quantity: amount,
+                    selectedColor: color || null,
+                    selectedSize: size || null,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    },
+                }
+            );
+
+            setAction("success");
+            setMessage("Added to cart");
+            setVisible(true);
+            console.log("Item added to cart successfully:", response.data);
+        } catch (error) {
+            setAction("cancel");
+            setMessage("Error while adding to cart.");
+            setVisible(true);
+            console.error("Error adding to cart:", error.response?.data || error.message);
+        }
+    };
+
+    const handleSubmitReview = async () => {
+        if (rating === 0) {
+            setAction("cancel");
+            setMessage("Please provide a rating.");
+            setVisible(true);
+            return;
+        }
+
+        try {
+            const response = await axios.post(
+                `http://localhost:5050/Reviews?announcementId=${id}`,
+                {
+                    comment: comment || null,
+                    rating: rating,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    },
+                }
+            );
+
+            setAction("success");
+            setMessage("Review submitted successfully!");
+            setVisible(true);
+            setReviews([...reviews, response.data]); 
+            setComment(''); 
+            setRating(0);   
+        } catch (error) {
+            setAction("cancel");
+            setMessage("You have already given a review to this announcement.");
+            setVisible(true);
+            console.error("Error submitting review:", error.response?.data || error.message);
+        }
+    };
+
+    const handleDeleteReview = async (reviewId) => {
+        try {
+            await axios.delete(`http://localhost:5050/Reviews?reviewId=${reviewId}`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                },
+            });
+    
+            setAction("success");
+            setMessage("Review deleted successfully.");
+            setVisible(true);
+            setReviews(reviews.filter(review => review.id !== reviewId)); 
+        } catch (error) {
+            setAction("cancel");
+            setMessage("Error while deleting review.");
+            setVisible(true);
+            console.error("Error deleting review:", error.response?.data || error.message);
+        }
+    };
+    
+
+    if (!announcement) {
+        return <div>Loading...</div>;
     }
 
     return (
-        <div className='announcement'>
-            <Navbar active={"home"} />
-            <div className="ann">
+        <div className='main-announcement'>
+            <Navbar active={"home"} user={user} />
+
+            <div className="ann container">
+                {visible && <MessageBox action={action} message={message} />}
                 <div className="top flex">
                     <div className="image">
                         <img src={headphones} alt="Headphones" />
                     </div>
-                    <div className="panel">
-                        <h3 className='flex'>Headphones <p>Added by: <Link to="/profile"><span> Magda Gessler</span></Link></p></h3>
 
-                        <div className="rating flex">
-                            {displayRating()}
-                            <span className='reviews'>(200+ reviews)</span>
+                    <div className="panel">
+                        <h3 className='flex'>{announcement[0].item.title}</h3>
+
+                        <div className="description">
+                            <h3>Description</h3>
+                            <p>{announcement[0]?.item?.description}</p>
+                        </div>
+
+                        <div className="price">
+                            <h3>Price</h3>
+                            <p>{announcement[0]?.item?.cost.value} zł</p>
                         </div>
 
                         <div className="user-panel">
-                            <div className="colors flex">
-                                <span>Colors: </span>
-                                {displayColors()}
-                            </div>
-
-                            <div className="sizes flex">
-                                <span>Sizes: </span>
-                                {displaySizes()}
+                            <div className="colors-sizes">
+                                {displayColorAndSizes()}
                             </div>
 
                             <div className="amount flex">
@@ -123,54 +312,59 @@ const Announcement = () => {
                                 </div>
                             </div>
                             <div className="add-to-cart flex">
-                                <button className='styledButton'>Buy now</button>
-                                <button className='styledButton'>Add to cart</button>
+                                <button className='styledButton' onClick={handleAddToCart}>
+                                    Add to cart
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <hr />
-                <div className="description">
-                    <h3>Description</h3>
-                    <p>
-                        Jakis opis sluchawek nie wiem, z sie fajnie nimi rzuca w monitor jak sie przegra w sismy xD.
-                        Jakis opis sluchawek nie wiem, z sie fajnie nimi rzuca w monitor jak sie przegra w sismy xD.
-                    </p>
-                </div>
             </div>
 
-            <div className="reviews-container">
-                <h3>Reviews</h3>
+            <div className="reviews-container container">
+                <Header text="Reviews" />
                 <div className="reviews-user">
                     <div className="review-of-user">
                         <h4>Add review</h4>
-                        <textarea name="review" rows={3}></textarea>
+                        <textarea
+                            name="review"
+                            rows={3}
+                            value={comment}
+                            onChange={(e) => setComment(e.target.value)}
+                        />
                         <div className="button flex">
                             <div className="rating">
                                 {displayInputRating()}
                             </div>
-                            <button className='styledButton'>Add review</button>
+                            <button className='styledButton' onClick={handleSubmitReview}>Add review</button>
                         </div>
                     </div>
 
-                    <div className="review-of-user">
-                        <div className="user flex">
-                            <div className="value flex">
-                                Magda Gessler
-                                <div className="my-review">
-                                    <button className='styledButton'>Delete</button>
+                    {reviews.map((review) => (
+                        <div key={review.id} className="review-of-user">
+                            <div className="user flex">
+                                <div className="value flex">
+                                    {userEmails[review.ownerId.value] || 'Loading...'}
+                                    {user.id === review.ownerId.value && (
+                                        <button
+                                            className='styledButton'
+                                            onClick={() => handleDeleteReview(review.id)}
+                                        >
+                                            Delete
+                                        </button>
+                                    )}
                                 </div>
+                                <span className='rating'>{displayRating(review.rating.value)}</span>
                             </div>
-                            <span className='rating'>{displayRating()}</span>
+                            <div className="content">
+                                {review.comment}
+                            </div>
                         </div>
-                        <div className="content">
-                            Jakis gowno itemek. nie polecam. Rzucam talerzem w niego. Zbilam monitor.
-                        </div>
-                    </div>
+                    ))}
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Announcement
+export default Announcement;

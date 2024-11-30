@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import Userpanel from './Userpanel'
 import MessageBox from '../MessageBox/MessageBox'
 
-const Navbar = ({active}) => {
+const Navbar = ({active, user, setUser}) => {
   const [clicked, setClicked] = useState(false)
   const [visible, setVisible] = useState(false)
   const logged = localStorage.getItem("logged")
@@ -26,7 +26,6 @@ const Navbar = ({active}) => {
   return (
     <nav className='flex'>
         {visible && <MessageBox action={"info"} message={"You cannot contact us, sorry."}/>}
-        
         <div className="logo">            
             <Link to="/" className='flex'>
                 <img src={logo} alt="logo of the store" />
@@ -35,7 +34,7 @@ const Navbar = ({active}) => {
         </div>
         <ul className='flex'>
             <Link to="/"><li className={`${active == 'home' && 'active'}`}>Home</li></Link>
-            <Link to="/"><li className={`${active == 'explore' && 'active'}`}>Explore</li></Link>
+            <Link to="/explore"><li className={`${active == 'explore' && 'active'}`}>Explore</li></Link>
             <Link to={`${logged ? "/saved" : "/authorization"}`}><li className={`${active == 'saved' && 'active'}`}>Saved</li></Link>
                 <Link to={`${logged ? "/messages" : "/authorization"}`}><li className={`${active == 'messages' && 'active'}`}>
                 Messages
@@ -45,12 +44,12 @@ const Navbar = ({active}) => {
         {logged ? (
                         <>
                             <div className={`${active == 'profile filled' && 'active'} flex profile-container`} onClick={()=>setClicked(!clicked)}>
-                                <span className="material-symbols-outlined">person</span>Magda Gessler
+                                <span className="material-symbols-outlined">person</span>{user.name} {user.lastName}
                                 <Link to={`${logged ? "/shopping-cart" : "/authorization"}`} className='cart flex'>
                                     <span className="material-symbols-outlined">shopping_cart</span> Cart
                                 </Link>
                             </div>
-                            {clicked && <Userpanel setClicked={setClicked} />}
+                            {clicked && <Userpanel setClicked={setClicked} user={user} setUser={setUser}/>}
                         </>
                         ) : (
                         <Link to="/authorization" className='flex'>

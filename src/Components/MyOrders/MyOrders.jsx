@@ -1,64 +1,102 @@
-import React from 'react'
-import "./MyOrders.css"
-import headphones from "../../assets/sluchawki.webp"
-import Navbar from '../Navbar/Navbar'
-import { Link } from 'react-router-dom'
-import Header from '../Header/Header'
+import React, { useEffect, useState } from 'react';
+import "./MyOrders.css";
+import headphones from "../../assets/sluchawki.webp";
+import Navbar from '../Navbar/Navbar';
+import { Link } from 'react-router-dom';
+import Header from '../Header/Header';
+import axios from 'axios';
 
-const MyOrders = () => {
-  return (
-    <div className='my-orders'>
-        <Navbar active={"profile"}/>
-        <div className="my-orders-container container">
+const MyOrders = ({ user }) => {
+    const [orders, setOrders] = useState([]);
+    const [visibleOrders, setVisibleOrders] = useState(10);
 
-            <Header text="My orders" icons={true}/>
+    useEffect(() => {
+        const fetchOrders = async () => {
+            try {
+                const response = await axios.get('http://localhost:5050/Orders/my-orders', {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
 
-            <div className="order flex">
-                <Link to="/" className='flex'>
-                    <div className="image">
-                        <img src={headphones} alt="headphones" />
-                    </div>
-                    <div className="description">
-                        <h4>Headphones</h4>
-                        <p>Cena: <span>239.99 zł</span></p>
-                        <div className="color">Color: <span>red</span></div>
-                        <div className="size">Size: <span>M</span></div>
-                    </div>
-                </Link>
-                    <div className="orderInfo">
-                        <div className="orderedAt">Ordered at: <span>18.12.2022</span></div>
-                        <div className="delivery">Delivery: <span>Inpost 15.00 zł</span></div>
-                    </div>
-                    <div className="statusDiv">
-                        <p>Status: <span className='status pending'>Pending...</span></p>
-                    </div>
-            </div>
+                const ordersData = response.data;
 
+                const updatedOrders = await Promise.all(ordersData.map(async (order) => {
+                    try {
+                        const announcementResponse = await axios.get(`http://localhost:5050/Announcement?announcementId=${order.items[0].announcementId}`);
+                        return { ...order, announcement: announcementResponse.data };
+                    } catch (error) {
+                        console.error("Error fetching announcement:", error);
+                        return order; 
+                    }
+                }));
 
+                const sortedOrders = updatedOrders.sort((a, b) => new Date(b.orderedAt) - new Date(a.orderedAt));
 
-            <div className="order flex">
-                <Link to="/" className='flex'>
-                    <div className="image">
-                        <img src={headphones} alt="headphones" />
+                setOrders(sortedOrders);  
+            } catch (error) {
+                console.error("Error fetching orders:", error.response);
+            }
+        };
+
+        fetchOrders();
+    }, []);
+
+    const handleShowMore = () => {
+        setVisibleOrders((prev) => prev + 10);
+    };
+
+    return (
+        <div className='my-orders'>
+            <Navbar active={"profile"} user={user} />
+            <div className="my-orders-container container">
+                <Header text="My orders" icons={true} />
+
+                {orders.slice(0, visibleOrders).map(order => (
+                    <div key={order.id} className="order flex">
+                        <Link to={`/announcement?announcementId=${order.announcement[0].id}`} className='flex'>
+                            <div className="image">
+                                <img src={headphones} alt="headphones" />
+                            </div>
+                            <div className="description">
+                                <h4>{order.announcement[0].item.title}</h4>
+                                <p>Cena: <span>{order.announcement ? `${order.announcement[0].item.cost.value} zł` : 'Price not available'}</span></p>
+
+                                {order.items[0].selectedColor && (
+                                    <div className="color">Color: <span>{order.items[0].selectedColor}</span></div>
+                                )}
+
+                                {order.items[0].selectedSize && (
+                                    <div className="size">Size: <span>{order.items[0].selectedSize}</span></div>
+                                )}
+
+                                {order.items[0].quantity && (
+                                    <div className="amount">Amount: <span>{order.items[0].quantity.value}</span></div>
+                                )}
+
+                                <div className="amount">Total: <span>{order.items[0].quantity.value * order.announcement[0].item.cost.value} zł</span></div>
+                            </div>
+                        </Link>
+                        <div className="orderInfo">
+                            <div className="orderedAt">
+                                Ordered at: <span>{new Date(order.orderedAt).toLocaleDateString()}</span>
+                            </div>
+                            <div className="delivery">
+                                Delivery: <span>{order.deliveryMethod.value}</span>
+                            </div>
+                        </div>
+                        <div className="statusDiv">
+                            <p>Status: <span className={`status ${order.items[0].orderStatus.value}`}>{order.items[0].orderStatus.value.charAt(0).toUpperCase() + order.items[0].orderStatus.value.slice(1)}</span></p>
+                        </div>
                     </div>
-                    <div className="description">
-                        <h4>Headphones</h4>
-                        <p>Cena: <span>239.99 zł</span></p>
-                        <div className="color">Color: <span>red</span></div>
-                        <div className="size">Size: <span>M</span></div>
-                    </div>
-                </Link>
-                    <div className="orderInfo">
-                        <div className="orderedAt">Ordered at: <span>18.12.2022</span></div>
-                        <div className="delivery">Delivery: <span>Inpost 15.00 zł</span></div>
-                    </div>
-                    <div className="statusDiv">
-                        <p>Status: <span className='status pending'>Pending...</span></p>
-                    </div>
+                ))}
+
+                {orders.length > visibleOrders && (
+                    <button className="styledButton" onClick={handleShowMore}>Show More</button>
+                )}
             </div>
         </div>
-    </div>
-  )
+    );
 }
 
-export default MyOrders
+export default MyOrders;

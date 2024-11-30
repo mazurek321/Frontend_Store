@@ -5,7 +5,7 @@ const Header = ({text, icons}) => {
   return (
     <div className="header flex">
               <h3>{text}</h3>
-              {icons && <>
+              {/* {icons && <>
                 <div className="icons flex">
                 <div className="filter flex">
                   <span class="material-symbols-outlined">sort</span>
@@ -16,7 +16,7 @@ const Header = ({text, icons}) => {
                   Filter
                 </div>
               </div>
-              </>}
+              </>} */}
               
     </div>
   )

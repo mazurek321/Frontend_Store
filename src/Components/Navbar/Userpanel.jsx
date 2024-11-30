@@ -2,7 +2,7 @@ import React, {useRef} from 'react'
 import "./Userpanel.css"
 import { Link } from 'react-router-dom'
 
-const Userpanel = ({setClicked}) => {
+const Userpanel = ({setClicked, user, setUser}) => {
   const box = useRef()
 
   const handleClick = (e) => {
@@ -15,8 +15,8 @@ const Userpanel = ({setClicked}) => {
         <ul>
               <Link to="/profile">
                   <li className='user-name'>
-                      <span>Magda Gessler</span>
-                      <span className='email'>gesslerowa@wp.pl</span>
+                      <span>{user.name} {user.lastName}</span>
+                      <span className='email'>{user.email}</span>
                   </li>
               </Link>
               <Link to="/profile"><li><span className="material-symbols-outlined">person</span>Profile</li></Link>

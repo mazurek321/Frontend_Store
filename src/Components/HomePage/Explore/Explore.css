@@ -1,0 +1,62 @@
+.explore .main{
+    margin-top: 4em;
+}
+
+.explore .top{
+    width: 100%;
+    justify-content: center;
+    gap: 1em;
+}
+
+.explore .main .top span{
+    cursor: pointer;
+    background: #fefefe;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: 1px solid silver;
+    font-size: 14px;
+}
+
+.explore .main .top .active{
+    background: var(--backgroundGradient1);
+    color: white;
+    box-shadow: 0 0 5px black;
+    border: 1px solid purple;
+}
+
+.explore h3.section-header{
+    width: 100%;
+    background: var(--backgroundGradient1Straight);
+    font-size: 20px;
+    color: #fefe;
+    justify-content: space-between;
+    position: sticky;
+    top: 3em;
+    left: 0;
+    z-index: 100;
+}
+
+.explore .items{
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 3em;
+    justify-content: center;
+}
+
+.explore .announcement{
+    width: 18em;
+}
+
+.explore .announcement .top{
+    justify-content: space-between;
+}
+
+.explore .button{
+    width: 100%;
+    text-align: center;
+}
+
+.explore .icon{
+    cursor: pointer;
+}
