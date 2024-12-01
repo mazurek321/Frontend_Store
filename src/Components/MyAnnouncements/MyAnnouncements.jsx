@@ -80,10 +80,11 @@ const MyAnnouncements = ({ user }) => {
     setFormData({
       ...formData,
       selectedOption: value,
-      colorsAmount: value === 'colors' ? formData.colorsAmount : {},
-      colorsSizesAmount: value === 'colorsAndSizes' ? formData.colorsSizesAmount : {},
+      colorsAmount: value === 'colors' ? {} : null, 
+      colorsSizesAmount: value === 'colorsAndSizes' ? {} : null,
     });
   };
+  
 
   const handleAddColor = () => {
     const newColorKey = `additionalProp${Object.keys(formData.colorsAmount).length + 1}`;
@@ -152,7 +153,9 @@ const MyAnnouncements = ({ user }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { selectedOption, ...dataToSend } = formData;
+
     console.log('Announcement created:', dataToSend);
+    
     try {
       const response = await axios.post('http://localhost:5050/Announcement', dataToSend, {
         headers: {
@@ -160,8 +163,11 @@ const MyAnnouncements = ({ user }) => {
         },
       });
       console.log('Announcement created:', response.data);
+      setClicked(false)
+      handleResetForm()
     } catch (error) {
       console.error('Error creating announcement:', error);
+      alert("Something went wrong.")
     }
   };
 
@@ -170,7 +176,19 @@ const MyAnnouncements = ({ user }) => {
     setClicked(false); 
   };
 
-
+  const handleDelete = async (announcementId) => {
+    try {
+      await axios.delete(`http://localhost:5050/Announcement?announcementId=${announcementId}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+  
+      setAnnouncements(announcements.filter((announcement) => announcement.id !== announcementId));
+    } catch (error) {
+      console.error('Error deleting announcement:', error);
+    }
+  };
   
 
   return (
@@ -180,7 +198,7 @@ const MyAnnouncements = ({ user }) => {
       <div className='my-announcements-container container'>
         <Header text='My announcements' icons={true} />
         <div className='add-announcement'>
-          <button className='styledButton' onClick={() => setClicked(true)}>
+          <button className='styledButton end' onClick={() => setClicked(true)}>
             + Add announcement
           </button>
         </div>
@@ -343,7 +361,6 @@ const MyAnnouncements = ({ user }) => {
               }}
             />
 
-            {/* Editable Amount input */}
             <input
               type='number'
               placeholder='Amount'
@@ -406,6 +423,8 @@ const MyAnnouncements = ({ user }) => {
                 <Link to={`/announcement?announcementId=${announcement.id}`}>
                   <button className='styledButton'>View</button>
                 </Link>
+                <button className='styledButton'>Edit</button>
+                <button className='styledButton' onClick={()=>handleDelete(announcement.id)}>Delete</button>
               </div>
             </div>
           ))

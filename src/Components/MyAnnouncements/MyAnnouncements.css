@@ -24,8 +24,8 @@
 }
 
 .my-announcements .my-announcements-container button:is(:not(.end)){
-    width: 40%;
-    margin: 20px 0;
+    width: 20%;
+    margin: 20px 10px;
 }
 
 .my-announcements .add-announcement{
