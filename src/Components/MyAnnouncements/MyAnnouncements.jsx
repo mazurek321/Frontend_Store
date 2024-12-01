@@ -30,8 +30,8 @@ const MyAnnouncements = ({ user }) => {
     amount: 0,
     cost: 0,
     categories: [],
-    colorsSizesAmount: {}, // This will hold colors and their sizes/amounts
-    colorsAmount: {}, // This will hold colors and their amounts
+    colorsSizesAmount: {},
+    colorsAmount: {},
     model_Brand: '',
     selectedOption: ''
   };
@@ -80,8 +80,8 @@ const MyAnnouncements = ({ user }) => {
     setFormData({
       ...formData,
       selectedOption: value,
-      colorsAmount: value === 'colors' ? formData.colorsAmount : {}, // Reset colorsAmount if "colorsAndSizes"
-      colorsSizesAmount: value === 'colorsAndSizes' ? formData.colorsSizesAmount : {}, // Reset colorsSizesAmount if "colors"
+      colorsAmount: value === 'colors' ? formData.colorsAmount : {},
+      colorsSizesAmount: value === 'colorsAndSizes' ? formData.colorsSizesAmount : {},
     });
   };
 
@@ -114,7 +114,6 @@ const MyAnnouncements = ({ user }) => {
         ...formData.colorsSizesAmount,
         [newColorKey]: {
           size1: 0,
-          size2: 0, // You can add more default sizes if needed
         },
       },
     });
@@ -134,17 +133,21 @@ const MyAnnouncements = ({ user }) => {
   };
 
   const handleColorSizeChange = (colorKey, size, amount) => {
+    const newColorsSizesAmount = { ...formData.colorsSizesAmount };
+    
+    if (size !== formData.colorsSizesAmount[colorKey]) {
+      const updatedSizeData = { ...newColorsSizesAmount[colorKey], [size]: amount };
+      newColorsSizesAmount[colorKey] = updatedSizeData;
+    } else {
+      newColorsSizesAmount[colorKey][size] = amount;
+    }
+  
     setFormData({
       ...formData,
-      colorsSizesAmount: {
-        ...formData.colorsSizesAmount,
-        [colorKey]: {
-          ...formData.colorsSizesAmount[colorKey],
-          [size]: amount,
-        },
-      },
+      colorsSizesAmount: newColorsSizesAmount,
     });
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -162,11 +165,13 @@ const MyAnnouncements = ({ user }) => {
     }
   };
 
-  // Function to reset the form to initial state
   const handleResetForm = () => {
     setFormData(initialFormData);
-    setClicked(false); // Optionally, hide the form when reset
+    setClicked(false); 
   };
+
+
+  
 
   return (
     <div className='my-announcements'>
@@ -255,68 +260,117 @@ const MyAnnouncements = ({ user }) => {
                 </div>
 
                 {formData.selectedOption === 'colors' && (
-                  <div>
-                    <h3>Colors and Amounts</h3>
-                    {Object.keys(formData.colorsAmount).map((colorKey) => (
-                      <div key={colorKey}>
-                        <input
-                          type='text'
-                          placeholder='Color'
-                          value={colorKey}
-                          disabled
-                        />
-                        <input
-                          type='number'
-                          placeholder='Amount'
-                          value={formData.colorsAmount[colorKey]}
-                          onChange={(e) =>
-                            handleColorAmountChange(colorKey, Number(e.target.value))
-                          }
-                        />
-                      </div>
-                    ))}
-                    <button type='button' onClick={handleAddColor}>
-                      Add Color
-                    </button>
-                  </div>
-                )}
+  <div>
+    <h3>Colors and Amounts</h3>
+    {Object.keys(formData.colorsAmount).map((colorKey, index) => (
+      <div key={colorKey}>
+        <input
+          type='text'
+          placeholder='Color'
+          value={colorKey}
+          onChange={(e) => {
+            const newColorKey = e.target.value; 
+            const newColorsAmount = { ...formData.colorsAmount };
+            newColorsAmount[newColorKey] = formData.colorsAmount[colorKey]; 
+            delete newColorsAmount[colorKey]; 
+            setFormData({
+              ...formData,
+              colorsAmount: newColorsAmount,
+            });
+          }}
+        />
+        <input
+          type='number'
+          placeholder='Amount'
+          value={formData.colorsAmount[colorKey]}
+          onChange={(e) =>
+            handleColorAmountChange(colorKey, Number(e.target.value))
+          }
+        />
+      </div>
+    ))}
+    <button type='button' onClick={handleAddColor}>
+      Add Color
+    </button>
+  </div>
+)}
 
-                {formData.selectedOption === 'colorsAndSizes' && (
-                  <div>
-                    <h3>Colors, Sizes, and Amounts</h3>
-                    {Object.keys(formData.colorsSizesAmount).map((colorKey) => (
-                      <div key={colorKey}>
-                        <h4>{colorKey}</h4>
-                        {Object.keys(formData.colorsSizesAmount[colorKey]).map((size) => (
-                          <div key={size}>
-                            <input
-                              type='text'
-                              placeholder='Size'
-                              value={size}
-                              onChange={(e) =>
-                                handleColorSizeChange(colorKey, size, formData.colorsSizesAmount[colorKey][size])
-                              }
-                            />
-                            <input
-                              type='number'
-                              placeholder='Amount'
-                              value={formData.colorsSizesAmount[colorKey][size]}
-                              onChange={(e) =>
-                                handleColorSizeChange(colorKey, size, Number(e.target.value))
-                              }
-                            />
-                          </div>
-                        ))}
-                        <button type='button' onClick={() => handleAddSizeToColor(colorKey)}>
-                          Add Size
-                        </button>
-                      </div>
-                    ))}
-                    <button type='button' onClick={handleAddColorSize}>
-                      Add Color, Size, and Amount
-                    </button>
-                  </div>
-                )}
+
+{formData.selectedOption === 'colorsAndSizes' && (
+  <div>
+    <h3>Colors, Sizes, and Amounts</h3>
+    {Object.keys(formData.colorsSizesAmount).map((colorKey) => (
+      <div key={colorKey}>
+        <h4>
+          <input
+            type='text'
+            placeholder='Color'
+            value={colorKey}
+            onChange={(e) => {
+              const newColorKey = e.target.value;
+              const newColorsSizesAmount = { ...formData.colorsSizesAmount };
+              newColorsSizesAmount[newColorKey] = formData.colorsSizesAmount[colorKey];
+              delete newColorsSizesAmount[colorKey];
+              setFormData({
+                ...formData,
+                colorsSizesAmount: newColorsSizesAmount,
+              });
+            }}
+          />
+        </h4>
+
+        {Object.keys(formData.colorsSizesAmount[colorKey]).map((size) => (
+          <div key={size}>
+            <input
+              type='text'
+              placeholder='Size'
+              value={size} 
+              onChange={(e) => {
+                const newSize = e.target.value;
+
+                const updatedSizes = { ...formData.colorsSizesAmount[colorKey] };
+
+                delete updatedSizes[size]; 
+                updatedSizes[newSize] = updatedSizes[size] || 0; 
+
+                setFormData({
+                  ...formData,
+                  colorsSizesAmount: {
+                    ...formData.colorsSizesAmount,
+                    [colorKey]: updatedSizes,
+                  },
+                });
+              }}
+            />
+
+            {/* Editable Amount input */}
+            <input
+              type='number'
+              placeholder='Amount'
+              value={formData.colorsSizesAmount[colorKey][size]}
+              onChange={(e) => {
+                const amount = Number(e.target.value);
+                handleColorSizeChange(colorKey, size, amount);
+              }}
+            />
+          </div>
+        ))}
+
+        <button type='button' onClick={() => handleAddSizeToColor(colorKey)}>
+          Add Size
+        </button>
+      </div>
+    ))}
+
+    <button type='button' onClick={handleAddColorSize}>
+      Add Color, Size, and Amount
+    </button>
+  </div>
+)}
+
+
+
+
 
                 <div className="buttons flex">
                   <button type='submit' className='styledButton'>
