@@ -9,6 +9,7 @@ const Login = ({setClicked, exiting, setVisible, setMessage, user, setUser,}) =>
     const [password, setPassword] = useState('')
     const navigate = useNavigate();
     const logged = localStorage.getItem('token')
+    const [showPassword, setShowPassword] = useState(false)
 
     const rememberMeHandler = () => {
         isCheckedButton(!checkedButton)
@@ -100,12 +101,12 @@ const Login = ({setClicked, exiting, setVisible, setMessage, user, setUser,}) =>
 
                     <label htmlFor="password">
                         <input 
-                            type="password" 
+                            type={showPassword ? "text" : "password"} 
                             placeholder='Password'
                             onChange={(e)=>setPassword(e.target.value)}
                             required
                         />
-                        <span className="material-symbols-outlined visibility">visibility</span>
+                        <span className="material-symbols-outlined visibility" onClick={()=>setShowPassword(!showPassword)}>visibility</span>
                     </label>
 
                     <div className="bottom_section">

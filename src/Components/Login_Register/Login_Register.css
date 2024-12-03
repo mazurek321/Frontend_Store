@@ -10,6 +10,10 @@
     box-shadow: 0 0 10px grey;
 }
 
+.Login_Register input[type="radio"]{
+    display: none;
+}
+
 .goBack{
     position: absolute;
     top: 3%;

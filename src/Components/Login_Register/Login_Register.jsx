@@ -12,6 +12,7 @@ const Login_Register = ({user, setUser}) => {
   const [exiting, setExiting] = useState(false)
   const [visible, setVisible] = useState(false)
   const [message, setMessage] = useState("")
+  const [action, setAction] = useState("")
   let timer;
 
   const handleClick=()=>{
@@ -39,7 +40,7 @@ const Login_Register = ({user, setUser}) => {
               <div className="side">
                 <Side_Register exiting={exiting}/>
               </div>
-              <Register setClicked={handleClick} exiting={exiting} setVisible={setVisible} setMessage={setMessage}/>
+              <Register setClicked={handleClick} exiting={exiting} setVisible={setVisible} setMessage={setMessage} setAction={setAction}/>
             </>
             :
             <>
