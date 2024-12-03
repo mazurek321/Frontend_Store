@@ -55,7 +55,7 @@ const Cart = ({ user }) => {
     fetchCart();
   }, []);
 
-  const handleQuantityChange = (id, action) => {
+  const handleQuantityChange = async (id, action) => {
     const updatedCartItems = cartItems.map(item => {
       if (item.id === id) {
         let updatedQuantity = item.quantity.value;
@@ -69,10 +69,92 @@ const Cart = ({ user }) => {
       return item;
     });
     setCartItems(updatedCartItems);
+
+    const itemToUpdate = updatedCartItems.find(item => item.id === id);
+    if (itemToUpdate) {
+      await updateCartItemInDatabase(itemToUpdate);
+    }
+  };
+
+  const handleFavoriteClick = async (itemId) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert('You must be logged in to save this item');
+      return;
+    }
+    try {
+      const response = await axios.post(`http://localhost:5050/SavedAnnouncements?announcementId=${itemId}`, {}, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      if (response.status === 200) {
+        setIsFavorite(true);
+      }
+    } catch (error) {
+      console.error('Error saving to favorites:', error);
+    }
+  };
+
+  const updateCartItemInDatabase = async (item) => {
+    try {
+      const payload = {
+        quantity: item.quantity.value,
+        selectedColor: item.selectedColor || null,
+        selectedSize: item.selectedSize || null,
+      };
+  
+      await axios.put(
+        `http://localhost:5050/ShoppingCart?ItemId=${item.id}`,
+        payload,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+    } catch (error) {
+      console.error("Error updating cart item:", error.response?.data || error.message);
+    }
+  };
+
+  const handleDeleteItem = async (id) => {
+    try {
+      const response = await axios.delete(`http://localhost:5050/ShoppingCart?itemId=${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+      window.location.reload();
+
+    } catch (error) {
+      console.error("Error deleting item from cart:", error);
+      setMessage("Error deleting item.");
+      setAction("cancel");
+      setVisible(true);
+    }
   };
 
   const makeOrder = async () => {
     try {
+      for (const item of cartItems) {
+        const updatedItem = {
+          quantity: item.quantity.value,
+          selectedColor: item.selectedColor || null,
+          selectedSize: item.selectedSize || null
+        };
+  
+        await axios.put(
+          `http://localhost:5050/ShoppingCart?AnnouncementId=${item.announcement[0].id}`,
+          updatedItem,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
+              'Content-Type': 'application/json'
+            }
+          }
+        );
+      }
+
       const response = await axios.post('http://localhost:5050/Orders?order=true', 
         `${shipmentOption}`, 
         {
@@ -116,9 +198,9 @@ const Cart = ({ user }) => {
               <div key={item.id} className="item flex">
                 <div className="buttons flex">
                   <button className='favorite'>
-                    <span className="material-symbols-outlined">favorite</span>
+                    <span className="material-symbols-outlined" onClick={() => handleFavoriteClick(item.announcement[0].id)}>favorite</span>
                   </button>
-                  <button className='delete'>
+                  <button className='delete' onClick={() => handleDeleteItem(item.announcement[0].id)}>
                     <span className="material-symbols-outlined">delete</span>
                   </button>
                 </div>

@@ -30,8 +30,8 @@ const MyAnnouncements = ({ user }) => {
     amount: 0,
     cost: 0,
     categories: [],
-    colorsSizesAmount: {},
-    colorsAmount: {},
+    colorsSizesAmount: null,
+    colorsAmount: null,
     model_Brand: '',
     selectedOption: ''
   };
@@ -423,7 +423,6 @@ const MyAnnouncements = ({ user }) => {
                 <Link to={`/announcement?announcementId=${announcement.id}`}>
                   <button className='styledButton'>View</button>
                 </Link>
-                <button className='styledButton'>Edit</button>
                 <button className='styledButton' onClick={()=>handleDelete(announcement.id)}>Delete</button>
               </div>
             </div>

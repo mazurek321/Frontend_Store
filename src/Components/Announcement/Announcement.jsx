@@ -21,7 +21,7 @@ const Announcement = ({ user }) => {
     const [action, setAction] = useState("cancel");
     const [reviews, setReviews] = useState([]); 
     const [comment, setComment] = useState('');
-    const [userEmails, setUserEmails] = useState({}); // State to store user emails
+    const [userEmails, setUserEmails] = useState({}); 
     let timer;
 
     useEffect(() => {
@@ -47,7 +47,6 @@ const Announcement = ({ user }) => {
             axios.get(`http://localhost:5050/Reviews?announcementId=${id}`)
                 .then(response => {
                     setReviews(response.data);
-                    // Fetch the email for each review owner
                     response.data.forEach(review => {
                         if (review.ownerId && review.ownerId.value) {
                             fetchUserEmail(review.ownerId.value);
@@ -58,12 +57,40 @@ const Announcement = ({ user }) => {
         }
     }, [location.search]);
 
+    const getAvailableStock = () => {
+    if (color && size && announcement[0]?.item?.colorsSizesAmounts) {
+        return announcement[0].item.colorsSizesAmounts[color]?.[size] || 0;
+    } else if (color && announcement[0]?.item?.colorsAmount) {
+        return announcement[0].item.colorsAmount[color] || 0;
+    } else if (announcement[0]?.item?.amount) {
+        return announcement[0].item.amount; 
+    }
+    return 0;
+};
+
+    const handleFavoriteClick = async (itemId) => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+        alert('You must be logged in to save this item');
+        return;
+        }
+
+        try {
+            const response = await axios.post(`http://localhost:5050/SavedAnnouncements?announcementId=${itemId}`, {}, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+        } catch (error) {
+            console.error('Error saving to favorites:', error.response);
+        }
+    };
+    
+
     const fetchUserEmail = async (userId) => {
         try {
             const response = await axios.get(`http://localhost:5050/Users/user?userId=${userId}`);
             setUserEmails(prevState => ({
                 ...prevState,
-                [userId]: response.data.email.value, // Store email by userId
+                [userId]: response.data.email.value, 
             }));
         } catch (error) {
             console.error('Error fetching user email:', error);
@@ -104,30 +131,45 @@ const Announcement = ({ user }) => {
                 <div className="color-size-amounts">
                     <h4>Choose Color:</h4>
                     <div className="color-options">
-                        {Object.keys(announcement[0].item.colorsSizesAmounts).map((availableColor) => (
-                            <button
-                                key={availableColor}
-                                className={`option-button ${color === availableColor ? 'selected' : ''}`}
-                                onClick={() => setColor(availableColor)}
-                            >
-                                {availableColor}
-                            </button>
-                        ))}
+                        {Object.keys(announcement[0].item.colorsSizesAmounts).map((availableColor) => {
+                            const totalAmount = Object.values(announcement[0].item.colorsSizesAmounts[availableColor])
+                                .reduce((sum, sizeAmount) => sum + sizeAmount, 0); 
+                            const isColorAvailable = totalAmount > 0;
+    
+                            return (
+                                <button
+                                    key={availableColor}
+                                    className={`option-button ${color === availableColor ? 'selected' : ''}`}
+                                    onClick={() => isColorAvailable && setColor(availableColor)}
+                                    disabled={!isColorAvailable}
+                                    style={{ opacity: !isColorAvailable ? 0.5 : 1 }}
+                                >
+                                    {availableColor} ({totalAmount})
+                                </button>
+                            );
+                        })}
                     </div>
-
+    
                     {color && (
                         <>
                             <h4>Choose Size:</h4>
                             <div className="size-options">
-                                {Object.keys(announcement[0].item.colorsSizesAmounts[color]).map((availableSize) => (
-                                    <button
-                                        key={availableSize}
-                                        className={`option-button ${size === availableSize ? 'selected' : ''}`}
-                                        onClick={() => setSize(availableSize)}
-                                    >
-                                        {availableSize}
-                                    </button>
-                                ))}
+                                {Object.keys(announcement[0].item.colorsSizesAmounts[color]).map((availableSize) => {
+                                    const sizeAmount = announcement[0].item.colorsSizesAmounts[color][availableSize];
+                                    const isSizeAvailable = sizeAmount > 0;
+    
+                                    return (
+                                        <button
+                                            key={availableSize}
+                                            className={`option-button ${size === availableSize ? 'selected' : ''}`}
+                                            onClick={() => isSizeAvailable && setSize(availableSize)}
+                                            disabled={!isSizeAvailable}
+                                            style={{ opacity: !isSizeAvailable ? 0.5 : 1 }}
+                                        >
+                                            {availableSize} ({sizeAmount})
+                                        </button>
+                                    );
+                                })}
                             </div>
                         </>
                     )}
@@ -138,30 +180,52 @@ const Announcement = ({ user }) => {
                 <div className="color-amounts">
                     <h4>Choose Color:</h4>
                     <div className="color-options">
-                        {Object.keys(announcement[0].item.colorsAmount).map((availableColor) => (
-                            <button
-                                key={availableColor}
-                                className={`option-button ${color === availableColor ? 'selected' : ''}`}
-                                onClick={() => setColor(availableColor)}
-                            >
-                                {availableColor}
-                            </button>
-                        ))}
+                        {Object.keys(announcement[0].item.colorsAmount).map((availableColor) => {
+                            const colorAmount = announcement[0].item.colorsAmount[availableColor];
+                            const isColorAvailable = colorAmount > 0;
+    
+                            return (
+                                <button
+                                    key={availableColor}
+                                    className={`option-button ${color === availableColor ? 'selected' : ''}`}
+                                    onClick={() => isColorAvailable && setColor(availableColor)}
+                                    disabled={!isColorAvailable}
+                                    style={{ opacity: !isColorAvailable ? 0.5 : 1 }}
+                                >
+                                    {availableColor} ({colorAmount})
+                                </button>
+                            );
+                        })}
                     </div>
                 </div>
             );
+        } else if (announcement[0]?.item?.amount.value) {
+            return (
+                <div className="amount-only">
+                    <h4>Item Quantity:</h4>
+                    <p>Available stock: {announcement[0]?.item?.amount.value}</p>
+                </div>
+            );
+        } else {
+            return <p>No stock available for this item.</p>;
         }
     };
+    
+    
 
     const handleAmountChange = (command) => {
+        const maxStock = getAvailableStock();
+    
         if (command === 1) {
             if (amount <= 1) return;
             setAmount(amount - 1);
         } else {
-            if (amount >= 100) return;
+            if (amount >= maxStock) return;
             setAmount(amount + 1);
         }
     };
+    
+    
 
     const handleAddToCart = async () => {
         const needsSize = !!announcement[0]?.item?.colorsSizesAmounts;
@@ -282,6 +346,9 @@ const Announcement = ({ user }) => {
 
                     <div className="panel">
                         <h3 className='flex'>{announcement[0].item.title}</h3>
+                        <button className='favorite'>
+                            <span className="material-symbols-outlined" onClick={() => handleFavoriteClick(announcement[0].id)}>favorite</span>
+                        </button>
 
                         <div className="description">
                             <h3>Description</h3>
@@ -299,18 +366,22 @@ const Announcement = ({ user }) => {
                             </div>
 
                             <div className="amount flex">
-                                <span>Amount: </span>
-                                <div className="amount-value">
-                                    <button className="decrease" onClick={() => handleAmountChange(1)}>-</button>
-                                    <input
-                                        type="number"
-                                        className="value"
-                                        value={amount}
-                                        onChange={e => setAmount(Number(e.target.value))}
-                                    />
-                                    <button className="increase" onClick={() => handleAmountChange(2)}>+</button>
-                                </div>
-                            </div>
+                        <span>Amount: </span>
+                        <div className="amount-value">
+                            <button className="decrease" onClick={() => handleAmountChange(1)}>-</button>
+                            <input
+                                type="number"
+                                className="value"
+                                value={amount}
+                                onChange={e => {
+                                    const value = Math.min(Number(e.target.value), getAvailableStock());
+                                    setAmount(value > 0 ? value : 1);
+                                }}
+                            />
+                            <button className="increase" onClick={() => handleAmountChange(2)}>+</button>
+                        </div>
+                    </div>
+
                             <div className="add-to-cart flex">
                                 <button className='styledButton' onClick={handleAddToCart}>
                                     Add to cart

@@ -177,6 +177,12 @@ const Messages = ({ user }) => {
                     Size: <span>{order.items[0].selectedSize}</span>
                   </div>
                 )}
+
+                {order.items[0]?.quantity?.value && (
+                    <div className="amount">
+                      Amount: <span>{order.items[0].quantity.value}</span>
+                    </div>
+                  )}
               </div>
             </Link>
 

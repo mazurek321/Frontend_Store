@@ -19,6 +19,8 @@ const Login = ({setClicked, exiting, setVisible, setMessage, user, setUser,}) =>
         
         try{
 
+            console.log(email, " ", password)
+
             if(logged){
                 navigate("/");
                 return;
@@ -32,6 +34,8 @@ const Login = ({setClicked, exiting, setVisible, setMessage, user, setUser,}) =>
             var token = response.data
             localStorage.setItem("token", token)
             localStorage.setItem("logged", true)
+
+            console.log(token)
 
             const userResponse = await axios.get('http://localhost:5050/Users/me', {
                 headers: {
